@@ -27,7 +27,7 @@ const FooterUI = () => {
     return (
         <FooterWrapper>
             <span className="copyright-text">
-                © 2021 OSS Cameroon, All rights reserved.
+                © {(new Date()).getFullYear()} OSS Cameroon, All rights reserved.
             </span>
             <div className="accounts">
                 <span>Follow our community </span>

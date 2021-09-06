@@ -25,7 +25,7 @@ const SearchInput = () => {
     return (
         <SearchInputWrapper>
             <IoSearch size={20} color={"#777"}/>
-            <input type="text" value={value} onChange={onChange} className={"search"}/>
+            <input type="text" placeholder={"Search..."} value={value} onChange={onChange} className={"search"}/>
             {
                 state ? <button type={"button"} onClick={clear}><IoCloseCircleSharp size={20} color={"#777"}/></button> : null
             }

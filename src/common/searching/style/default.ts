@@ -8,7 +8,7 @@ export const SearchingWrapper = styled.form`
   background-color: #fff;
   position: absolute;
   bottom: -25px;
-  border-radius: 10px;
+  border-radius: 50px;
   padding: .3em;
   z-index: 9;
   
