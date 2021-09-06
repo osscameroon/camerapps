@@ -15,4 +15,30 @@ export const HeaderWrapper = styled.div`
 
     color: #fff;
   }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    
+    .btn-adder {
+      margin-left: 1em;
+      text-decoration: none;
+      color: #fff;
+      
+      display: flex;
+      align-items: center;
+      
+      span {
+        margin-left: 5px;
+      }
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    .btn-adder__icon {
+      font-size: 1.3em;
+    }
+  }
 `;

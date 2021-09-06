@@ -8,7 +8,6 @@ export const SearchingWrapper = styled.form`
   background-color: #fff;
   position: absolute;
   bottom: -25px;
-  overflow: hidden;
   border-radius: 10px;
   padding: .3em;
   
@@ -23,5 +22,13 @@ export const SearchingWrapper = styled.form`
   
   transform: translateX(-50%);
   left: 50%;
+  
+  .dropdowns {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
 `;

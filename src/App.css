@@ -1,0 +1,12 @@
+.switch-wrapper {
+    position: relative;
+}
+
+.switch-wrapper > div {
+    position: absolute;
+}
+
+a, button {
+    cursor: pointer;
+    text-decoration: none;
+}

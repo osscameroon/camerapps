@@ -2,14 +2,21 @@ import React, {memo} from "react";
 import HeaderUI from "../../layout/header";
 import HomeUI from "../home";
 import FooterUI from "../../layout/footer";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import AddApplicationModule from "../add-application-module";
 
 const MainUI = () => {
 
     return (
         <>
-            <HeaderUI />
-            <HomeUI />
-            <FooterUI />
+            <Router>
+                <HeaderUI/>
+                <Switch>
+                    <Route exact path="/" component={HomeUI}/>
+                    <Route path="/add-app" component={AddApplicationModule}/>
+                </Switch>
+                <FooterUI/>
+            </Router>
         </>
     );
 

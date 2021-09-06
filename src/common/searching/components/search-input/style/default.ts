@@ -20,7 +20,7 @@ export const SearchInputWrapper = styled.div`
     outline: none;
     border: none;
     
-    font-size: 1.2em;
+    font-size: 1em;
     color: #666;
   }
 `;
