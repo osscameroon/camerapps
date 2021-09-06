@@ -1,7 +1,7 @@
-import React, {EventHandler, memo, useCallback, useEffect, useState} from "react";
+import React, {memo, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import {FaChevronUp, FaChevronDown} from "react-icons/fa";
-import {ClickEvent, Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
+import {FaChevronDown} from "react-icons/fa";
+import {Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import {BaseModel} from "../../../../model/BaseModel";

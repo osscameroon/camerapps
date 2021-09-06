@@ -1,4 +1,3 @@
-import KeyBuilder from "../../../utils/KeyBuilder";
 import {IGender} from "../../../model/IGender";
 import {ICategory} from "../../../model/ICategory";
 
@@ -25,6 +24,13 @@ class SearchingController {
             {
                 id: "2",
                 name: "Mobile application"
+            }
+        ],
+        [
+            "3",
+            {
+                id: "3",
+                name: "Bots"
             }
         ],
     ]);

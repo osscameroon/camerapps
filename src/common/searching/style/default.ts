@@ -10,6 +10,7 @@ export const SearchingWrapper = styled.form`
   bottom: -25px;
   border-radius: 10px;
   padding: .3em;
+  z-index: 9;
   
   display: flex;
   align-items: center;

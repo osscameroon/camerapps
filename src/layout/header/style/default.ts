@@ -27,6 +27,7 @@ export const HeaderWrapper = styled.div`
       
       display: flex;
       align-items: center;
+      border: none;
       
       span {
         margin-left: 5px;
@@ -34,6 +35,8 @@ export const HeaderWrapper = styled.div`
       
       &:hover {
         text-decoration: underline;
+        background-color: transparent;
+        color: #fff;
       }
     }
     
