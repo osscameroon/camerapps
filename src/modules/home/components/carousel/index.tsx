@@ -7,6 +7,7 @@ import CarouselController from "./controller";
 import CarouselControlUI from "./children/carousel-control";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import KeyBuilder from "../../../../utils/KeyBuilder";
 
 const CarouselUI = () => {
 
@@ -20,7 +21,7 @@ const CarouselUI = () => {
                 {
                     [1,2].map((item) => {
                         return (
-                            <div className="slide-container">
+                            <div className="slide-container" key={KeyBuilder.build}>
                                 <div className="slide__image">
                                     <img src={BannerImage} alt="Banner png"/>
                                 </div>
