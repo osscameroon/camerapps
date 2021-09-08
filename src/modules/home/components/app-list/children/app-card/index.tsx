@@ -2,6 +2,8 @@ import {memo} from "react";
 import styled from "styled-components";
 import appLogo from "./../../../../../../assets/images/app.svg";
 import {IApp} from "../../../../../../model/IApp";
+import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn} from "react-icons/fa";
+import {AiOutlineLink} from "react-icons/ai";
 
 const AppCardWrapper = styled.a`
   display: flex;
@@ -63,6 +65,29 @@ const AppCardWrapper = styled.a`
       transform: rotate(-5deg);
     }
   }
+  
+  .accounts{
+    margin-top: 1em;
+    display: flex;
+    
+    button, a {
+      border: none;
+      background-color: #eee;
+      height: 30px;
+      width: 30px;
+      border-radius: 5px;
+      margin-right: 5px;  
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .3s 0s ease-in-out;
+      
+      &:hover {
+        background-color: #000;
+      }
+    }
+  }
 `;
 
 interface AppCardProps {
@@ -76,7 +101,14 @@ const AppCardUI = ({app}: AppCardProps) => {
             <img src={appLogo} alt="app's logo"/>
             <strong>Lorem ipsum</strong>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
+            <div className="accounts">
+                <button className={""}><FaFacebookF color={"#ccc"} size={17} /></button>
+                <button className={""}><FaSlack color={"#ccc"} size={17} /></button>
+                <button className={""}><FaTwitter color={"#ccc"} size={17} /></button>
+                <button className={""}><FaGithub color={"#ccc"} size={17} /></button>
+                <button className={""}><FaLinkedinIn color={"#ccc"} size={17} /></button>
+                <a href={"#"} target={"_blank"}><AiOutlineLink color={"#ccc"} size={17} /></a>
+            </div>
         </AppCardWrapper>
     );
 
