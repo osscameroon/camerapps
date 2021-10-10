@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {size} from "../../../constants";
 
 export const HeaderWrapper = styled.div`
   height: 60px;
@@ -42,6 +43,36 @@ export const HeaderWrapper = styled.div`
     
     .btn-adder__icon {
       font-size: 1.3em;
+    }
+  }
+  
+  @media (max-width: ${size.tablet}) {
+    padding: 0 1em;
+    
+    .actions {
+      
+      .btn-adder {
+        padding: 0;
+        
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: ${size.tablet}) and (max-width: ${size.laptop}) {
+    padding: 0 1em;
+    
+    .actions {
+      
+      .btn-adder {
+        padding: 0;
+        
+        span {
+          display: none;
+        }
+      }
     }
   }
 `;

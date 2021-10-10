@@ -1,10 +1,11 @@
 import React, {memo} from "react";
 import { Donation } from "./style/default";
+import {FaDonate} from "react-icons/fa";
 
 const DonationButton = () => {
 
     return (
-        <Donation href={"/"}>Make a donation</Donation>
+        <Donation href={"/"}><FaDonate className={"donate-button__icon"} /><span>Make a donation</span></Donation>
     );
 
 }

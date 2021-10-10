@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {size} from "../../../constants";
 
 export const SearchingWrapper = styled.form`
   height: 50px;
@@ -30,6 +31,14 @@ export const SearchingWrapper = styled.form`
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  @media (min-width: ${size.tablet}) and (max-width: ${size.laptop}) {
+    
+  }
+  
+  @media (max-width: ${size.tablet}) {
+    display: none;
   }
   
 `;

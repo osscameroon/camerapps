@@ -7,17 +7,19 @@ import {IApp} from "../../../../model/IApp";
 
 const AppListUI = () => {
 
-    const {status, data, error} = useFetch("https://restcountries.eu/rest/v2/alpha?codes=col;no;ee");
+    const {status, data, error} = useFetch("https://reqres.in/api/users?page=2");
 
     console.log(status, data, error);
 
     if(status === "fetching") return <>Loading...</>
-    if(status === "error" || data.length <= 0) return <EmptyStateUI/>
+    if(status === "error" || data.data.length <= 0) return <EmptyStateUI/>;
+
+    const values = data.data ?? [];
 
     return (
         <AppListWrapper>
             {
-                data.map((item: IApp) => {
+                values.map((item: IApp) => {
                     return (
                         <AppCardUI app={item} />
                     );

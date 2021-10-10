@@ -7,6 +7,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import {BaseModel} from "../../../../model/BaseModel";
 import {IGender} from "../../../../model/IGender";
 import KeyBuilder from "../../../../utils/KeyBuilder";
+import {size} from "../../../../constants";
 
 const DropdownWrapper = styled.div`
   width: 50%;

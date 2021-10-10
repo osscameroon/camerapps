@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {size} from "../../../constants";
 
 export const Donation = styled.a`
   border: 2px solid #fff;
@@ -18,5 +19,18 @@ export const Donation = styled.a`
   &:hover {
     background-color: #fff;
     color: #000;
+  }
+  
+  .donate-button__icon {
+    margin-right: .5em;
+  }
+  
+  @media (max-width: ${size.tablet}) {
+    border: none;
+    padding: 0;
+    
+    span {
+      display: none;
+    }
   }
 `;

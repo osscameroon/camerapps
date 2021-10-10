@@ -1,7 +1,6 @@
 import React, {memo} from "react";
 import CarouselUI from "./components/carousel";
 import {HomeWrapper} from "./style/default";
-import EmptyStateUI from "../../common/empty-state";
 import AppListUI from "./components/app-list";
 
 const HomeUI = () => {

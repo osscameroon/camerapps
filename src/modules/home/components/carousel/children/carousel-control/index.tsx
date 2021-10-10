@@ -1,6 +1,7 @@
 import React, {memo} from "react";
 import {FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import styled, {css} from "styled-components";
+import {size} from "../../../../../../constants";
 
 interface CarouselControlProps {
     position: "left" | "right";
@@ -21,10 +22,16 @@ const ControlWrapper = styled.button<{position: string}>`
   right: 2em;
   top: 50%;
   transform: translateY(-50%);
+
+
+  @media (max-width: ${size.tablet}) {
+    display: none;
+  }
   
   ${props => props.position === "left" && css`
     left: 2em;
   `}
+
 `;
 
 const CarouselControlUI = ({position = "left", action}: CarouselControlProps) => {
