@@ -26,6 +26,14 @@ const DropdownWrapper = styled.div`
   &:first-child {
     border-right: 2px solid #ddd;
   }
+
+  @media (max-width: ${size.tablet}) {
+    width: auto;
+    
+    &:first-child {
+      border-right: none;
+    }
+  }
 `;
 
 export interface CustomDropdownProps<R extends BaseModel> {

@@ -19,7 +19,7 @@ const CarouselUI = () => {
             <CarouselControlUI position={"right"} action={() => CarouselController.goNext(customSlider)} />
             <Slider className={"slider"} {...CarouselController.sliderOptions} ref={customSlider}>
                 {
-                    [1,2].map((item) => {
+                    [1].map((item) => {
                         return (
                             <div className="slide-container" key={KeyBuilder.build}>
                                 <div className="slide__image">
@@ -37,7 +37,7 @@ const CarouselUI = () => {
                     })
                 }
             </Slider>
-            <SearchingUI/>
+            {/*<SearchingUI/>*/}
         </CarouselWrapper>
     );
 

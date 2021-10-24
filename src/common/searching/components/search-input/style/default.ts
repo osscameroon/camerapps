@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {size} from "../../../../../constants";
 
 export const SearchInputWrapper = styled.div`
   width: 60%;
@@ -22,5 +23,11 @@ export const SearchInputWrapper = styled.div`
     
     font-size: 1em;
     color: #666;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    border-right: none;
+    width: calc(100% - 20px);
+    height: 60px;
   }
 `;

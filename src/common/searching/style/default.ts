@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import {size} from "../../../constants";
 
-export const SearchingWrapper = styled.form`
+export const SearchingWrapper = styled.form<{visible?: boolean}>`
   height: 50px;
   min-width: 100px;
   max-width: 800px;
   width: 100%;
   background-color: #fff;
   position: absolute;
-  bottom: -25px;
+  top: -25px;
   border-radius: 50px;
   padding: .3em;
   z-index: 9;
@@ -38,7 +38,24 @@ export const SearchingWrapper = styled.form`
   }
   
   @media (max-width: ${size.tablet}) {
-    display: none;
+    position: relative;
+    width: 100%;
+    top: 0;
+    box-shadow: none;
+    //background-color: #f1f1f1;
+    
+    flex-direction: column;
+    justify-content: center;
+    
+    height: 100px;
+    border-radius: 0;
+    padding: 0;
+    
+    .dropdowns {
+      height: 60px;
+      width: calc(100% - 20px);
+      justify-content: flex-start;
+    }
   }
   
 `;

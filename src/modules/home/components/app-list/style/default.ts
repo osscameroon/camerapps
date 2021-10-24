@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {size} from "../../../../../constants";
 
 export const AppListWrapper = styled.div`
   z-index: 1;
@@ -9,4 +10,9 @@ export const AppListWrapper = styled.div`
   width: 100%;
   
   padding: 4em 3em;
+
+  @media (max-width: ${size.tablet}) {
+    width: auto;
+    padding: 2em;
+  }
 `;

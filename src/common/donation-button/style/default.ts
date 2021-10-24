@@ -32,5 +32,10 @@ export const Donation = styled.a`
     span {
       display: none;
     }
+    
+    &:hover {
+      background-color: transparent;
+      color: #fff;
+    }
   }
 `;
