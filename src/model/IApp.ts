@@ -1,4 +1,6 @@
 import {BaseModel} from "./BaseModel";
+import { ICategory } from "./ICategory";
+import {IGender} from "./IGender";
 
 export interface IApp extends BaseModel{
     author?: string;
@@ -10,4 +12,6 @@ export interface IApp extends BaseModel{
     twitter?: string;
     linkedIn?: string;
     github?: string;
+    gender?: IGender;
+    category?: ICategory;
 }

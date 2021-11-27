@@ -12,7 +12,9 @@ class AddAppController {
         twitter: "twitter",
         linkedIn: "linkedIn",
         github: "github",
-        author: "author"
+        author: "author",
+        gender: "gender",
+        category: "category",
     };
 
     get fields() {

@@ -10,4 +10,6 @@ export interface AddingAppProps {
     facebook: string;
     linkedIn: string;
     github: string;
+    gender: string
+    category: string
 }

@@ -4,6 +4,7 @@ import AppCardUI from "./children/app-card";
 import EmptyStateUI from "../../../../common/empty-state";
 import {AppListWrapper} from "./style/default";
 import {IApp} from "../../../../model/IApp";
+import KeyBuilder from "../../../../utils/KeyBuilder";
 
 const AppListUI = () => {
 
@@ -21,7 +22,7 @@ const AppListUI = () => {
             {
                 values.map((item: IApp) => {
                     return (
-                        <AppCardUI app={item} />
+                        <AppCardUI key={KeyBuilder.build} app={item} />
                     );
                 })
             }
