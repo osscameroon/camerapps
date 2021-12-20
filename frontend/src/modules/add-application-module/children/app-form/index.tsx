@@ -1,8 +1,7 @@
 import React, {memo} from 'react';
 import styled from "styled-components";
-import AddAppController from "./../../controller";
+import AddAppController from "../../controller";
 import InputBuilder from "../input-builder";
-import {FormProps} from "../../../../model/FormProps";
 
 const AppFormUIWrapper = styled.form`
   padding: 2em;

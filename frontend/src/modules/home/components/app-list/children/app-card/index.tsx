@@ -1,6 +1,6 @@
 import {memo} from "react";
 import styled from "styled-components";
-import appLogo from "./../../../../../../assets/images/app.svg";
+import appLogo from "../../../../../../assets/images/app.svg";
 import {IApp} from "../../../../../../model/IApp";
 import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn} from "react-icons/fa";
 import {AiOutlineLink} from "react-icons/ai";

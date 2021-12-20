@@ -1,6 +1,6 @@
 import React, {memo} from "react";
 import SearchingUI from "../../../../common/searching";
-import BannerImage from "./../../../../assets/images/banner.jpg";
+import BannerImage from "../../../../assets/images/banner.jpg";
 import {CarouselWrapper} from "./style/default";
 import Slider from "react-slick";
 import CarouselController from "./controller";

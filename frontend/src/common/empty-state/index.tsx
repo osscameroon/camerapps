@@ -1,6 +1,6 @@
 import React, {memo} from "react";
 import styled from "styled-components";
-import EmptyStateImage from './../../assets/images/empty-state.gif';
+import EmptyStateImage from '../../assets/images/empty-state.gif';
 
 const EmptyWrapper = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import {memo} from "react";
 import styled from "styled-components";
-import illustration from "./../../assets/images/banner.jpg";
+import illustration from "../../assets/images/banner.jpg";
 import AppFormUI from "./children/app-form";
 import AddAppController from "./controller";
 import {useForm} from "react-hook-form";
