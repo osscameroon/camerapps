@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Genre {
+    id              String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    name            String @unique
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    applications    Application[]
+}
+
+model Category {
+    id              String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    name            String @unique
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    applications    Application[]
+}
+
+model Application {
+    id              String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    name            String @unique
+    logo            String?
+    description     String?
+    websiteUrl      String?
+    telegramUrl     String?
+    twitterUrl      String?
+    githubUrl       String?
+    slackUrl        String?
+    linkedinUrl     String?
+    playstoreUrl    String?
+    appstoreUrl     String?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    category        Category @relation(fields: [categoryId], references: [id])
+    categoryId      String @db.ObjectId
+    genre           Genre @relation(fields: [genreId], references: [id])
+    genreId         String @db.ObjectId
+}
