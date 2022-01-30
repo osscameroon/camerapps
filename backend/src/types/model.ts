@@ -35,10 +35,9 @@ export type Application = {
   githubUrl: string | null;
   id: string;
   linkedinUrl: string | null;
-  logo: string | null;
+  logoUrl: string | null;
   name: string;
   othersUrl: string[];
-  pictureUrl: string | null;
   playstoreUrl: string | null;
   slackUrl: string | null;
   tags: string[];
