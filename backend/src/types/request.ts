@@ -1,4 +1,4 @@
-import { Category } from './model';
+import { Category, Genre } from './model';
 
 export type CreateCategoryInput = {
   name: string;
@@ -9,6 +9,10 @@ export type UpdateCategoryInput = {
 };
 
 export type CreateGenreInput = {
+  name: string;
+};
+
+export type UpdateGenreInput = {
   name: string;
 };
 
@@ -34,3 +38,6 @@ export type DataArrayResponse<T> = {
 
 export type CategoryData = DataResponse<Category>;
 export type CategoryListData = DataArrayResponse<Category>;
+
+export type GenreData = DataResponse<Genre>;
+export type GenreListData = DataArrayResponse<Genre>;
