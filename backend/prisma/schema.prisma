@@ -32,14 +32,20 @@ model Application {
     name            String @unique
     logo            String?
     description     String?
+    tags            String[]
+    pictureUrl      String?
     websiteUrl      String?
     telegramUrl     String?
+    dikaloUrl       String?
+    facebookUrl     String?
     twitterUrl      String?
+    whatsappUrl     String?
     githubUrl       String?
     slackUrl        String?
     linkedinUrl     String?
     playstoreUrl    String?
     appstoreUrl     String?
+    othersUrl       String[]
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
     category        Category @relation(fields: [categoryId], references: [id])
