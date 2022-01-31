@@ -6,14 +6,14 @@ import {
   GenericResponse,
   UpdateCategoryInput,
 } from '../types/request';
-import prisma from '../../prisma/db/client';
+import prisma from '../core/db/client';
 import { CATEGORY_ALREADY_EXIST, CATEGORY_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
 import { capitalize } from '../utils/helpers';
 
 export const create = async (req: Request, res: Response): Promise<Response<CategoryData | GenericResponse>> => {
   const { name }: CreateCategoryInput = req.body;
 
-  const category = await prisma.category.findFirst({ where: { name: { equals: name, mode: 'insensitive' } } });
+  const category = await prisma.category.findFirst({ where: { name: { equals: name } } });
 
   if (category) {
     return res.json({ data: category });
@@ -31,7 +31,7 @@ export const update = async (req: Request, res: Response): Promise<Response<Cate
   const category = await prisma.category.findFirst({
     where: {
       id: { not: { equals: id } },
-      name: { equals: name, mode: 'insensitive' },
+      name: { equals: name },
     },
   });
 

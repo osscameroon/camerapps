@@ -37,10 +37,10 @@ export type Application = {
   linkedinUrl: string | null;
   logoUrl: string | null;
   name: string;
-  othersUrl: string[];
+  othersUrl: string;
   playstoreUrl: string | null;
   slackUrl: string | null;
-  tags: string[];
+  tags: string;
   telegramUrl: string | null;
   twitterUrl: string | null;
   updatedAt: Date;

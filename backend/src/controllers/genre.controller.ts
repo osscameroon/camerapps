@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { GenreData, GenreListData, CreateGenreInput, GenericResponse, UpdateGenreInput } from '../types/request';
-import prisma from '../../prisma/db/client';
+import prisma from '../core/db/client';
 import { GENRE_ALREADY_EXIST, GENRE_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
 import { capitalize } from '../utils/helpers';
 
 export const create = async (req: Request, res: Response): Promise<Response<GenreData | GenericResponse>> => {
   const { name }: CreateGenreInput = req.body;
 
-  const genre = await prisma.genre.findFirst({ where: { name: { equals: name, mode: 'insensitive' } } });
+  const genre = await prisma.genre.findFirst({ where: { name: { equals: name } } });
 
   if (genre) {
     return res.json({ data: genre });
@@ -22,14 +22,20 @@ export const update = async (req: Request, res: Response): Promise<Response<Genr
   const { id } = req.params;
   const { name }: UpdateGenreInput = req.body;
 
-  const genre = await prisma.genre.findFirst({
+  const genre = await prisma.genre.findFirst({ where: { id } });
+
+  if (!genre) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Genre', id) });
+  }
+
+  const genreWithNewName = await prisma.genre.findFirst({
     where: {
       id: { not: { equals: id } },
-      name: { equals: name, mode: 'insensitive' },
+      name: { equals: name },
     },
   });
 
-  if (genre) {
+  if (genreWithNewName) {
     return res.status(400).json({ message: GENRE_ALREADY_EXIST(name) });
   }
 

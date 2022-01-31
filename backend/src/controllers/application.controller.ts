@@ -7,7 +7,7 @@ import {
   UpdateApplicationInput,
 } from '../types/request';
 import { Category } from '../types/model';
-import prisma from '../../prisma/db/client';
+import prisma, { Prisma } from '../core/db/client';
 import { APPLICATION_ALREADY_EXIST, APPLICATION_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
 
 const findApplicationCategory = async (category: CreateApplicationInput['category']): Promise<Category | null> => {
@@ -27,7 +27,7 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
 
   const application = await prisma.application.findFirst({
     where: {
-      name: { equals: applicationInput.name, mode: 'insensitive' },
+      name: { equals: applicationInput.name },
     },
   });
 
@@ -51,9 +51,11 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
     return res.status(422).json({ message: RESOURCE_NOT_FOUND('Genre', applicationInput.genreId) });
   }
 
-  const input = {
+  const input: Prisma.ApplicationUncheckedCreateInput = {
     ...applicationInput,
     categoryId: applicationCategory.id,
+    othersUrl: JSON.stringify(applicationInput.othersUrl),
+    tags: JSON.stringify(applicationInput.tags),
   };
 
   const createdApplication = await prisma.application.create({ data: input });
@@ -69,7 +71,7 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
     const application = await prisma.application.findFirst({
       where: {
         id: { not: { equals: id } },
-        name: { equals: applicationInput.name, mode: 'insensitive' },
+        name: { equals: applicationInput.name },
       },
     });
 
@@ -94,10 +96,12 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
     }
   }
 
-  const updateInput = {
+  const updateInput: Prisma.ApplicationUncheckedUpdateInput = {
     ...applicationInput,
     categoryId,
     genreId,
+    othersUrl: applicationInput.othersUrl ? JSON.stringify(applicationInput.othersUrl) : undefined,
+    tags: applicationInput.tags ? JSON.stringify(applicationInput.tags) : undefined,
   };
 
   const updatedApplication = await prisma.application.update({ data: updateInput, where: { id } });
