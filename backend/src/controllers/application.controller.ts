@@ -9,21 +9,32 @@ import {
 import { Category } from '../types/model';
 import prisma, { Prisma } from '../core/db/client';
 import { APPLICATION_ALREADY_EXIST, APPLICATION_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
+import { pictureUploadHandler } from '../utils/upload-handler';
+import { UploadedFile } from '../types/common';
 
-const findApplicationCategory = async (category: CreateApplicationInput['category']): Promise<Category | null> => {
-  if (category.id) {
-    return prisma.category.findFirst({ where: { id: category.id } });
+const findApplicationCategory = async (categoryId?: string, categoryName?: string): Promise<Category | null> => {
+  if (categoryId) {
+    return prisma.category.findFirst({ where: { id: categoryId } });
   }
 
-  if (category.name) {
-    return prisma.category.create({ data: { name: category.name } });
+  if (categoryName) {
+    return prisma.category.create({ data: { name: categoryName } });
   }
 
   return null;
 };
 
 export const create = async (req: Request, res: Response): Promise<Response<ApplicationData | GenericResponse>> => {
-  const { category, ...applicationInput }: CreateApplicationInput = req.body;
+  let result;
+
+  try {
+    result = await pictureUploadHandler(req, res);
+  } catch (e: any) {
+    return res.status(422).json({ errors: [e.message] });
+  }
+
+  const uploadedFile: UploadedFile = result.logo;
+  const { categoryId, categoryName, ...applicationInput }: CreateApplicationInput = result.body;
 
   const application = await prisma.application.findFirst({
     where: {
@@ -35,14 +46,14 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
     return res.status(400).json({ message: APPLICATION_ALREADY_EXIST(applicationInput.name) });
   }
 
-  if (!category.name && !category.id) {
+  if (!categoryName && !categoryId) {
     return res.status(422).json({ message: '' });
   }
 
-  const applicationCategory = await findApplicationCategory(category);
+  const applicationCategory = await findApplicationCategory(categoryId, categoryName);
 
   if (!applicationCategory) {
-    return res.status(422).json({ message: RESOURCE_NOT_FOUND('Category', category.id || '') });
+    return res.status(422).json({ message: RESOURCE_NOT_FOUND('Category', categoryId || '') });
   }
 
   const genre = await prisma.genre.findFirst({ where: { id: applicationInput.genreId } });
@@ -54,6 +65,7 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
   const input: Prisma.ApplicationUncheckedCreateInput = {
     ...applicationInput,
     categoryId: applicationCategory.id,
+    logoUrl: uploadedFile.filename,
     othersUrl: JSON.stringify(applicationInput.othersUrl),
     tags: JSON.stringify(applicationInput.tags),
   };

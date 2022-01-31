@@ -9,3 +9,5 @@ export const GENRE_DELETED = 'The genre has been deleted successfully!';
 
 export const APPLICATION_ALREADY_EXIST = (name: string) => `An application with the name "${name}" already exists.`;
 export const APPLICATION_DELETED = 'The genre has been deleted successfully!';
+
+export const PICTURE_UPLOAD_INVALID_FILE_TYPE = 'Invalid file type. Only JPG, JPEG or PNG file are allowed!';

@@ -18,17 +18,14 @@ export type UpdateGenreInput = {
 
 export type CreateApplicationInput = {
   appstoreUrl: string | null;
-  category: {
-    id?: string;
-    name?: string;
-  };
+  categoryId?: string;
+  categoryName?: string;
   description: string | null;
   dikaloUrl: string | null;
   facebookUrl: string | null;
   genreId: string;
   githubUrl: string | null;
   linkedinUrl: string | null;
-  logo: string | null;
   name: string;
   othersUrl: string[];
   pictureUrl: string | null;
