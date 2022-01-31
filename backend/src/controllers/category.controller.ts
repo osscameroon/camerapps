@@ -28,14 +28,20 @@ export const update = async (req: Request, res: Response): Promise<Response<Cate
   const { id } = req.params;
   const { name }: UpdateCategoryInput = req.body;
 
-  const category = await prisma.category.findFirst({
+  const category = await prisma.category.findFirst({ where: { id } });
+
+  if (!category) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Category', id) });
+  }
+
+  const categoryWithNewName = await prisma.category.findFirst({
     where: {
       id: { not: { equals: id } },
       name: { equals: name },
     },
   });
 
-  if (category) {
+  if (categoryWithNewName) {
     return res.status(400).json({ message: CATEGORY_ALREADY_EXIST(name) });
   }
 
@@ -46,6 +52,12 @@ export const update = async (req: Request, res: Response): Promise<Response<Cate
 
 export const remove = async (req: Request, res: Response): Promise<Response<GenericResponse>> => {
   const { id } = req.params;
+
+  const category = await prisma.category.findFirst({ where: { id } });
+
+  if (!category) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Category', id) });
+  }
 
   await prisma.category.delete({ where: { id } });
 
@@ -65,7 +77,7 @@ export const retrieveById = async (req: Request, res: Response): Promise<Respons
 };
 
 export const retrieveAll = async (req: Request, res: Response): Promise<Response<CategoryListData>> => {
-  const categories = await prisma.category.findMany();
+  const categories = await prisma.category.findMany({ orderBy: { name: 'asc' } });
 
   return res.json({ data: categories });
 };

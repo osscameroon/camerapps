@@ -67,6 +67,12 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
   const { id } = req.params;
   const { categoryId, genreId, ...applicationInput }: UpdateApplicationInput = req.body;
 
+  const application = await prisma.application.findFirst({ where: { id } });
+
+  if (!application) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Application', id) });
+  }
+
   if (applicationInput.name) {
     const application = await prisma.application.findFirst({
       where: {
@@ -111,6 +117,12 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
 
 export const remove = async (req: Request, res: Response): Promise<Response<GenericResponse>> => {
   const { id } = req.params;
+
+  const application = await prisma.application.findFirst({ where: { id } });
+
+  if (!application) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Application', id) });
+  }
 
   await prisma.application.delete({ where: { id } });
 

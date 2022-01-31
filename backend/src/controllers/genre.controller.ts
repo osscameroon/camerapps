@@ -47,6 +47,12 @@ export const update = async (req: Request, res: Response): Promise<Response<Genr
 export const remove = async (req: Request, res: Response): Promise<Response<GenericResponse>> => {
   const { id } = req.params;
 
+  const genre = await prisma.genre.findFirst({ where: { id } });
+
+  if (!genre) {
+    return res.status(404).json({ message: RESOURCE_NOT_FOUND('Genre', id) });
+  }
+
   await prisma.genre.delete({ where: { id } });
 
   return res.json({ message: GENRE_DELETED });
@@ -65,7 +71,7 @@ export const retrieveById = async (req: Request, res: Response): Promise<Respons
 };
 
 export const retrieveAll = async (req: Request, res: Response): Promise<Response<GenreListData>> => {
-  const genres = await prisma.genre.findMany();
+  const genres = await prisma.genre.findMany({ orderBy: { name: 'asc' } });
 
   return res.json({ data: genres });
 };
