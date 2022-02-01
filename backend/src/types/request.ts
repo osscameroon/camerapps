@@ -27,11 +27,11 @@ export type CreateApplicationInput = {
   githubUrl: string | null;
   linkedinUrl: string | null;
   name: string;
-  othersUrl: string[];
+  othersUrl: string | null;
   pictureUrl: string | null;
   playstoreUrl: string | null;
   slackUrl: string | null;
-  tags: string[];
+  tags: string | null;
   telegramUrl: string | null;
   twitterUrl: string | null;
   websiteUrl: string | null;

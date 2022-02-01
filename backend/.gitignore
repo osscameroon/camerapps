@@ -24,5 +24,6 @@ npm-debug.log*
 yarn-debug.log*
 ../frontend/yarn-error.log
 
-public/logos
+public/images/**
+!public/images/.gitkeep
 dbdata

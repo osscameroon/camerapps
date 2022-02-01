@@ -2,3 +2,5 @@ export const capitalize = (str: string) => `${str.charAt(0).toUpperCase()}${str.
 
 export const isMessageObject = <T extends { message: string; stack?: any }>(value: any): value is T =>
   value !== null && typeof value === 'object';
+
+export const nullify = (str: string | null) => str || null;

@@ -32,7 +32,7 @@ model Application {
     name            String @unique
     logoUrl         String? @map("logo_url")
     description     String?
-    tags            String @db.Text
+    tags            String? @db.Text
     websiteUrl      String? @map("website_url")
     telegramUrl     String? @map("telegram_url")
     dikaloUrl       String? @map("dikalo_url")
@@ -44,7 +44,7 @@ model Application {
     linkedinUrl     String? @map("linkedin_url")
     playstoreUrl    String? @map("playstore_url")
     appstoreUrl     String? @map("appstore_url")
-    othersUrl       String @db.Text @map("others_url")
+    othersUrl       String? @db.Text @map("others_url")
     createdAt       DateTime @default(now()) @map("created_at")
     updatedAt       DateTime @updatedAt @map("updated_at")
     category        Category @relation(fields: [categoryId], references: [id])

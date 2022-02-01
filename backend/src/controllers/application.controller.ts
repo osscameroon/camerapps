@@ -11,6 +11,7 @@ import prisma, { Prisma } from '../core/db/client';
 import { APPLICATION_ALREADY_EXIST, APPLICATION_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
 import { pictureUploadHandler } from '../utils/upload-handler';
 import { UploadedFile } from '../types/common';
+import { nullify } from '../utils/helpers';
 
 const findApplicationCategory = async (categoryId?: string, categoryName?: string): Promise<Category | null> => {
   if (categoryId) {
@@ -18,6 +19,12 @@ const findApplicationCategory = async (categoryId?: string, categoryName?: strin
   }
 
   if (categoryName) {
+    const category = prisma.category.findFirst({ where: { name: categoryName } });
+
+    if (category) {
+      return category;
+    }
+
     return prisma.category.create({ data: { name: categoryName } });
   }
 
@@ -63,11 +70,24 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
   }
 
   const input: Prisma.ApplicationUncheckedCreateInput = {
-    ...applicationInput,
+    appstoreUrl: nullify(applicationInput.appstoreUrl),
     categoryId: applicationCategory.id,
+    description: nullify(applicationInput.description),
+    dikaloUrl: nullify(applicationInput.dikaloUrl),
+    facebookUrl: nullify(applicationInput.facebookUrl),
+    genreId: applicationInput.genreId,
+    githubUrl: nullify(applicationInput.githubUrl),
+    linkedinUrl: nullify(applicationInput.linkedinUrl),
     logoUrl: uploadedFile.filename,
-    othersUrl: JSON.stringify(applicationInput.othersUrl),
-    tags: JSON.stringify(applicationInput.tags),
+    name: applicationInput.name,
+    othersUrl: nullify(applicationInput.othersUrl),
+    playstoreUrl: nullify(applicationInput.playstoreUrl),
+    slackUrl: nullify(applicationInput.slackUrl),
+    tags: nullify(applicationInput.tags),
+    telegramUrl: nullify(applicationInput.telegramUrl),
+    twitterUrl: nullify(applicationInput.twitterUrl),
+    websiteUrl: nullify(applicationInput.websiteUrl),
+    whatsappUrl: nullify(applicationInput.whatsappUrl),
   };
 
   const createdApplication = await prisma.application.create({ data: input });
