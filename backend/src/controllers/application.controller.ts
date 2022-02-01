@@ -11,7 +11,7 @@ import prisma, { Prisma } from '../core/db/client';
 import { APPLICATION_ALREADY_EXIST, APPLICATION_DELETED, RESOURCE_NOT_FOUND } from '../utils/constants';
 import { pictureUploadHandler } from '../utils/upload-handler';
 import { UploadedFile } from '../types/common';
-import { nullify } from '../utils/helpers';
+import { nullify, undef } from '../utils/helpers';
 
 const findApplicationCategory = async (categoryId?: string, categoryName?: string): Promise<Category | null> => {
   if (categoryId) {
@@ -135,11 +135,23 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
   }
 
   const updateInput: Prisma.ApplicationUncheckedUpdateInput = {
-    ...applicationInput,
+    appstoreUrl: undef(applicationInput.appstoreUrl),
     categoryId,
+    description: undef(applicationInput.description),
+    dikaloUrl: undef(applicationInput.dikaloUrl),
+    facebookUrl: undef(applicationInput.facebookUrl),
     genreId,
-    othersUrl: applicationInput.othersUrl ? JSON.stringify(applicationInput.othersUrl) : undefined,
-    tags: applicationInput.tags ? JSON.stringify(applicationInput.tags) : undefined,
+    githubUrl: undef(applicationInput.githubUrl),
+    linkedinUrl: undef(applicationInput.linkedinUrl),
+    name: applicationInput.name,
+    othersUrl: undef(applicationInput.othersUrl),
+    playstoreUrl: undef(applicationInput.playstoreUrl),
+    slackUrl: undef(applicationInput.slackUrl),
+    tags: undef(applicationInput.tags),
+    telegramUrl: undef(applicationInput.telegramUrl),
+    twitterUrl: undef(applicationInput.twitterUrl),
+    websiteUrl: undef(applicationInput.websiteUrl),
+    whatsappUrl: undef(applicationInput.whatsappUrl),
   };
 
   const updatedApplication = await prisma.application.update({ data: updateInput, where: { id } });

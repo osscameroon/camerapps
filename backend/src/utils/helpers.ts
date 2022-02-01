@@ -4,3 +4,5 @@ export const isMessageObject = <T extends { message: string; stack?: any }>(valu
   value !== null && typeof value === 'object';
 
 export const nullify = (str: string | null) => str || null;
+
+export const undef = (str: string | null | undefined) => (str === undefined ? undefined : str);
