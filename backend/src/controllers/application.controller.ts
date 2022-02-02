@@ -12,6 +12,7 @@ import { APPLICATION_ALREADY_EXIST, APPLICATION_DELETED, RESOURCE_NOT_FOUND } fr
 import { pictureUploadHandler } from '../utils/upload-handler';
 import { UploadedFile } from '../types/common';
 import { nullify, undef } from '../utils/helpers';
+import { transformApplication, transformApplications } from '../utils/transformer';
 
 const findApplicationCategory = async (categoryId?: string, categoryName?: string): Promise<Category | null> => {
   if (categoryId) {
@@ -92,7 +93,7 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
 
   const createdApplication = await prisma.application.create({ data: input });
 
-  return res.json({ data: createdApplication });
+  return res.json({ data: transformApplication(createdApplication) });
 };
 
 export const update = async (req: Request, res: Response): Promise<Response<ApplicationData | GenericResponse>> => {
@@ -156,7 +157,7 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
 
   const updatedApplication = await prisma.application.update({ data: updateInput, where: { id } });
 
-  return res.json({ data: updatedApplication });
+  return res.json({ data: transformApplication(updatedApplication) });
 };
 
 export const remove = async (req: Request, res: Response): Promise<Response<GenericResponse>> => {
@@ -185,11 +186,11 @@ export const retrieveById = async (
     return res.status(404).json({ message: RESOURCE_NOT_FOUND('Application', id) });
   }
 
-  return res.json({ data: application });
+  return res.json({ data: transformApplication(application) });
 };
 
 export const retrieveAll = async (req: Request, res: Response): Promise<Response<ApplicationListData>> => {
   const applications = await prisma.application.findMany();
 
-  return res.json({ data: applications });
+  return res.json({ data: transformApplications(applications) });
 };
