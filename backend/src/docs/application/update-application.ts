@@ -1,5 +1,16 @@
 import { genericResponseSchema, applicationResponseSchema } from '../response';
 
+const updateApplicationBody = {
+  properties: {
+    name: {
+      description: 'Cannot be empty',
+      example: 'Web Application',
+      type: 'string',
+    },
+  },
+  type: 'object',
+};
+
 const updateApplication = {
   description: 'Update the application',
   operationId: 'updateApplication',
@@ -16,7 +27,7 @@ const updateApplication = {
     content: {
       'application/json': {
         schema: {
-          $ref: '#/components/schemas/createApplicationBody',
+          $ref: '#/components/schemas/updateApplicationBody',
         },
       },
     },
@@ -60,4 +71,4 @@ const updateApplication = {
   tags: ['Application'],
 };
 
-export { updateApplication };
+export { updateApplication, updateApplicationBody };

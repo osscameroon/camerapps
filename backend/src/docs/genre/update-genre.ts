@@ -1,5 +1,16 @@
 import { genericResponseSchema, genreResponseSchema } from '../response';
 
+const updateGenreBody = {
+  properties: {
+    name: {
+      description: 'Cannot be empty',
+      example: 'Web Application',
+      type: 'string',
+    },
+  },
+  type: 'object',
+};
+
 const updateGenre = {
   description: 'Update the genre',
   operationId: 'updateGenre',
@@ -16,7 +27,7 @@ const updateGenre = {
     content: {
       'application/json': {
         schema: {
-          $ref: '#/components/schemas/createGenreBody',
+          $ref: '#/components/schemas/updateGenreBody',
         },
       },
     },
@@ -52,4 +63,4 @@ const updateGenre = {
   tags: ['Genre'],
 };
 
-export { updateGenre };
+export { updateGenre, updateGenreBody };

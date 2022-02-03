@@ -1,5 +1,16 @@
 import { genericResponseSchema, categoryResponseSchema } from '../response';
 
+const updateCategoryBody = {
+  properties: {
+    name: {
+      description: 'Cannot be empty',
+      example: 'Web Application',
+      type: 'string',
+    },
+  },
+  type: 'object',
+};
+
 const updateCategory = {
   description: 'Update the category',
   operationId: 'updateCategory',
@@ -16,7 +27,7 @@ const updateCategory = {
     content: {
       'application/json': {
         schema: {
-          $ref: '#/components/schemas/createCategoryBody',
+          $ref: '#/components/schemas/updateCategoryBody',
         },
       },
     },
@@ -52,4 +63,4 @@ const updateCategory = {
   tags: ['Category'],
 };
 
-export { updateCategory };
+export { updateCategory, updateCategoryBody };
