@@ -1,48 +1,15 @@
-import { sendContactEmail, registrationStat } from './common';
-import { loginUser } from './auth';
+import { createGenre, createGenreBody } from './genre/create-genre';
+import { deleteGenre } from './genre/delete-genre';
+import { updateGenre } from './genre/update-genre';
+import { findGenre } from './genre/find-genre';
+import { genreResponseSchema } from './response';
+import { findAllGenre } from './genre/findall-genre';
 
 const apiDocumentation = {
   components: {
     schemas: {
-      LoginUserBody: {
-        properties: {
-          email: {
-            example: 'user@email.com',
-            type: 'string',
-          },
-          password: {
-            example: 'Z31x3267&-ye87',
-            type: 'string',
-          },
-        },
-        type: 'object',
-      },
-      SendEmailContactBody: {
-        properties: {
-          email: {
-            example: 'john.doe@example.com',
-            type: 'string',
-          },
-          message: {
-            description: "A message of at most 1000 characters describing the user's needs",
-            example: 'Lorem ipsum dolor ancitus valar morghulis domagheris',
-            type: 'string',
-          },
-          name: {
-            example: 'John DOE',
-            type: 'string',
-          },
-          phone: {
-            example: '+33669803433',
-            type: 'string',
-          },
-          subject: {
-            example: 'Besoin de sponsoring',
-            type: 'string',
-          },
-        },
-        type: 'object',
-      },
+      createGenreBody,
+      genreResponse: genreResponseSchema,
     },
   },
   info: {
@@ -62,14 +29,14 @@ const apiDocumentation = {
   },
   openapi: '3.0.1',
   paths: {
-    '/auth/login': {
-      post: loginUser,
+    '/genres': {
+      get: findAllGenre,
+      post: createGenre,
     },
-    '/contact': {
-      post: sendContactEmail,
-    },
-    '/registration-stat': {
-      get: registrationStat,
+    '/genres/{id}': {
+      delete: deleteGenre,
+      get: findGenre,
+      put: updateGenre,
     },
   },
   servers: [
