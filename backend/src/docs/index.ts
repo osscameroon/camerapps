@@ -9,11 +9,17 @@ import { deleteCategory } from './category/delete-category';
 import { updateCategory } from './category/update-category';
 import { findCategory } from './category/find-category';
 import { findAllCategory } from './category/findall-category';
+import { createApplication, createApplicationBody } from './application/create-application';
+import { findAllApplication } from './application/findall-application';
+import { deleteApplication } from './application/delete-application';
+import { findApplication } from './application/find-application';
+import { updateApplication } from './application/update-application';
 
 const apiDocumentation = {
   components: {
     schemas: {
       categoryResponse: categoryResponseSchema,
+      createApplicationBody,
       createCategoryBody,
       createGenreBody,
       genreResponse: genreResponseSchema,
@@ -36,6 +42,15 @@ const apiDocumentation = {
   },
   openapi: '3.0.1',
   paths: {
+    '/applications': {
+      get: findAllApplication,
+      post: createApplication,
+    },
+    '/applications/{id}': {
+      delete: deleteApplication,
+      get: findApplication,
+      put: updateApplication,
+    },
     '/categories': {
       get: findAllCategory,
       post: createCategory,
