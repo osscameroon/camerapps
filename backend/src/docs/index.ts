@@ -53,7 +53,7 @@ const apiDocumentation = {
     '/applications/{id}': {
       delete: deleteApplication,
       get: findApplication,
-      put: updateApplication,
+      patch: updateApplication,
     },
     '/categories': {
       get: findAllCategory,
