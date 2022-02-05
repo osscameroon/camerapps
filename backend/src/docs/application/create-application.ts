@@ -4,7 +4,7 @@ const createApplicationBody = {
   properties: {
     appstoreUrl: {
       description: 'URL of the application on the Apple Store',
-      example: 'https://stroe.apple.com/apps/colorful',
+      example: 'https://store.apple.com/apps/colorful',
       required: false,
       type: 'string',
     },
@@ -125,7 +125,7 @@ const createApplication = {
   operationId: 'createApplication',
   requestBody: {
     content: {
-      'application/json': {
+      'multipart/form-data': {
         schema: {
           $ref: '#/components/schemas/createApplicationBody',
         },

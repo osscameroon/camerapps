@@ -20,7 +20,7 @@ const findApplicationCategory = async (categoryId?: string, categoryName?: strin
   }
 
   if (categoryName) {
-    const category = prisma.category.findFirst({ where: { name: categoryName } });
+    const category = await prisma.category.findFirst({ where: { name: categoryName } });
 
     if (category) {
       return category;
@@ -91,7 +91,13 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
     whatsappUrl: nullify(applicationInput.whatsappUrl),
   };
 
-  const createdApplication = await prisma.application.create({ data: input });
+  const createdApplication = await prisma.application.create({
+    data: input,
+    include: {
+      category: { select: { id: true, name: true } },
+      genre: { select: { id: true, name: true } },
+    },
+  });
 
   return res.json({ data: transformApplication(createdApplication) });
 };
@@ -155,7 +161,14 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
     whatsappUrl: undef(applicationInput.whatsappUrl),
   };
 
-  const updatedApplication = await prisma.application.update({ data: updateInput, where: { id } });
+  const updatedApplication = await prisma.application.update({
+    data: updateInput,
+    include: {
+      category: { select: { id: true, name: true } },
+      genre: { select: { id: true, name: true } },
+    },
+    where: { id },
+  });
 
   return res.json({ data: transformApplication(updatedApplication) });
 };
@@ -180,7 +193,13 @@ export const retrieveById = async (
 ): Promise<Response<ApplicationData | GenericResponse>> => {
   const { id } = req.params;
 
-  const application = await prisma.application.findFirst({ where: { id } });
+  const application = await prisma.application.findFirst({
+    include: {
+      category: { select: { id: true, name: true } },
+      genre: { select: { id: true, name: true } },
+    },
+    where: { id },
+  });
 
   if (!application) {
     return res.status(404).json({ message: RESOURCE_NOT_FOUND('Application', id) });
@@ -190,7 +209,12 @@ export const retrieveById = async (
 };
 
 export const retrieveAll = async (req: Request, res: Response): Promise<Response<ApplicationListData>> => {
-  const applications = await prisma.application.findMany();
+  const applications = await prisma.application.findMany({
+    include: {
+      category: { select: { id: true, name: true } },
+      genre: { select: { id: true, name: true } },
+    },
+  });
 
   return res.json({ data: transformApplications(applications) });
 };

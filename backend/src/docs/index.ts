@@ -2,7 +2,13 @@ import { createGenre, createGenreBody } from './genre/create-genre';
 import { deleteGenre } from './genre/delete-genre';
 import { updateGenre, updateGenreBody } from './genre/update-genre';
 import { findGenre } from './genre/find-genre';
-import { applicationResponseSchema, categoryResponseSchema, genreResponseSchema } from './response';
+import {
+  applicationResponseSchema,
+  categoryResponseSchema,
+  genreResponseSchema,
+  lightCategoryResponseSchema,
+  lightGenreResponseSchema,
+} from './response';
 import { findAllGenre } from './genre/findall-genre';
 import { createCategory, createCategoryBody } from './category/create-category';
 import { deleteCategory } from './category/delete-category';
@@ -24,6 +30,8 @@ const apiDocumentation = {
       createCategoryBody,
       createGenreBody,
       genreResponse: genreResponseSchema,
+      lightCategoryResponse: lightCategoryResponseSchema,
+      lightGenreResponse: lightGenreResponseSchema,
       updateApplicationBody,
       updateCategoryBody,
       updateGenreBody,
