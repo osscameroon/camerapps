@@ -1,0 +1,43 @@
+services:
+  db:
+    container_name: camerappsdb
+    image: mysql:8.0
+    restart: unless-stopped
+    volumes:
+      - "${DB_VOLUME_PATH:-~/camerapps}/db:/db/data"
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=C4meroonWin3re
+      - MYSQL_DATABASE=kamer
+    networks:
+      - camerapps-network
+  api:
+    container_name: camerappsapi
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    volumes:
+      - "${API_VOLUME_PATH:-~/camerapps}/api/logs:/app/logs"
+      - "${API_VOLUME_PATH:-~/camerapps}/api/public:/app/public"
+    ports:
+      - "8100:8100"
+    environment:
+      - NODE_ENV=development
+      - SERVER_PORT=8100
+      - BASE_URL=http://localhost:8100
+      - DATABASE_URL=mysql://root:C4meroonWin3re@db:3306/kamer
+      - APP_NAME="Camer Apps API"
+      - WEB_URL=https://camerapps.com
+      - UPLOAD_FILE_PATH=./public/images
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - camerapps-network
+
+networks:
+  camerapps-network:
+    driver: bridge
