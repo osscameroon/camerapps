@@ -31,7 +31,7 @@ model Application {
     id              String @id @default(cuid())
     name            String @unique
     logoUrl         String? @map("logo_url")
-    description     String?
+    description     String? @db.Text
     tags            String? @db.Text
     websiteUrl      String? @map("website_url")
     telegramUrl     String? @map("telegram_url")

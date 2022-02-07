@@ -1,4 +1,5 @@
 import prisma from './client';
+import { seedApplication } from './application';
 
 const genreData = ['Desktop', 'Framework', 'Library', 'Mobile', 'Multiplatform', 'Video Game', 'Web Application'];
 const categoryData = [
@@ -35,6 +36,7 @@ const seedCategory = async () => {
 const seedDatabase = async () => {
   await seedGenre();
   await seedCategory();
+  await seedApplication();
 };
 
 export { seedDatabase };
