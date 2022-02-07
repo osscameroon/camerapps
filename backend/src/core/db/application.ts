@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import jsYaml from 'js-yaml';
 import prisma, { Prisma } from './client';
-import { capitalize, nullify } from '../../utils/helpers';
+import { nullify } from '../../utils/helpers';
 
 const FILE_URL = 'https://raw.githubusercontent.com/osscameroon/camerapps.com/main/src/res/apps.yaml';
 
@@ -94,8 +94,6 @@ const createApplication = async (appItem: AppList['items'][number]) => {
     return;
   }
 
-  console.log(appItem.title);
-
   await prisma.application.create({ data: input });
 
   await downloadImage(appItem.image || 'default.svg');
@@ -114,8 +112,6 @@ const seedApplication = async () => {
 
   try {
     const appList = jsYaml.load(response.data) as unknown as AppList;
-
-    console.log(appList);
 
     await Promise.all(appList.items.map(createApplication));
   } catch (e) {
