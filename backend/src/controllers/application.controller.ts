@@ -214,6 +214,7 @@ export const retrieveAll = async (req: Request, res: Response): Promise<Response
       category: { select: { id: true, name: true } },
       genre: { select: { id: true, name: true } },
     },
+    orderBy: { createdAt: 'desc' },
   });
 
   return res.json({ data: transformApplications(applications) });
