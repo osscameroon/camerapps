@@ -1,4 +1,5 @@
 export const appName = "CM APPSTORE";
+export const apiHost = "http://localhost:8100"
 
 export const size = {
     mobileS: '320px',

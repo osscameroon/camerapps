@@ -1,48 +1,33 @@
 import {IGender} from "../../../model/IGender";
 import {ICategory} from "../../../model/ICategory";
+import { BaseModel } from "../../../model/BaseModel";
 
-class SearchingController {
+class SearchingController<T extends BaseModel> {
 
-    categories: Map<string, ICategory> = new Map<string, ICategory>([]);
-    genders: Map<string, IGender> = new Map<string, IGender>([
-        [
-            "all",
-            {
-                id: "all",
-                name: "All Gender"
-            }
-        ],
-        [
-            "1",
-            {
-                id: "1",
-                name: "Web application"
-            }
-        ],
-        [
-            "2",
-            {
-                id: "2",
-                name: "Mobile application"
-            }
-        ],
-        [
-            "3",
-            {
-                id: "3",
-                name: "Bots"
-            }
-        ],
-    ]);
+    list: Map<string, any> = new Map<string, any>();
 
-    get getGenders() {
-        return this.genders;
+    formatData<T>(list: Array<any>, type: "CATEGORY" | "GENDER") {
+        this.list.set("all", {
+            id: "all",
+            name: type === "CATEGORY" ? "All categories" : "All genders"
+        })
+        list.forEach(item => {
+            this.list.set(item?.id, {
+                id: item?.id,
+                name: item?.name
+            })
+        });
+        return this.list;
     }
 
-    get getCategories() {
-        return this.categories;
+    getList(type: "CATEGORY" | "GENDER") {
+        return Array.from(this.list.values() ?? []);
+    }
+
+    get getMapList() {
+        return this.list;
     }
 
 }
 
-export default new SearchingController();
+export default SearchingController;

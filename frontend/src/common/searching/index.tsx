@@ -2,7 +2,7 @@ import React, {memo} from "react";
 import {SearchingWrapper} from "./style/default";
 import SearchInput from "./components/search-input";
 import CustomDropdown from "./components/dropdown-category";
-import SearchingController from "./controller";
+import { apiHost } from "../../constants";
 
 const SearchingUI = () => {
 
@@ -14,8 +14,8 @@ const SearchingUI = () => {
         <SearchingWrapper onSubmit={onSubmit}>
             <SearchInput />
             <div className="dropdowns">
-                <CustomDropdown data={SearchingController.getCategories}/>
-                <CustomDropdown data={SearchingController.getGenders}/>
+                <CustomDropdown url={apiHost + "/categories"} type={"CATEGORY"}/>
+                <CustomDropdown url={apiHost + "/genres"} type={"GENDER"}/>
             </div>
         </SearchingWrapper>
     );

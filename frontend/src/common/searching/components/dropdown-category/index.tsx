@@ -5,17 +5,31 @@ import {Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import {BaseModel} from "../../../../model/BaseModel";
-import {IGender} from "../../../../model/IGender";
 import KeyBuilder from "../../../../utils/KeyBuilder";
 import {size} from "../../../../constants";
+import { useFetch } from "../../../../hooks/use-fetch";
+import SearchingController from "./../../controller";
+import { FormProps } from "../../../../model/FormProps";
 
-const DropdownWrapper = styled.div`
-  width: 50%;
+const DropdownWrapper = styled.div<{form?: FormProps}>`
+  width: ${props => props.form ? "100%" : "50%"};
   height: 90%;
   display: flex;
   justify-content: center;
   
+  ${props => props.form ? {
+      marginTop: ".5em",
+      borderRadius: "10px",
+    backgroundColor: "#fff",
+    border: "1px solid #000"
+  } : undefined}
+  
   .szh-menu-button {
+    ${props => props.form ? {
+        width: "100%",
+        justifyContent: "space-between",
+      padding: ".7em 1em"
+    } : undefined}
     border: none;
     background-color: transparent;
     display: flex;
@@ -23,8 +37,18 @@ const DropdownWrapper = styled.div`
     font-size: .9em;
   }
   
+  .szh-menu {
+    max-height: 250px;
+    overflow-y: scroll;
+  }
+  
   &:first-child {
     border-right: 2px solid #ddd;
+  }
+  
+  .activated {
+    background-color: #000;
+    color: #fff;
   }
 
   @media (max-width: ${size.tablet}) {
@@ -37,34 +61,49 @@ const DropdownWrapper = styled.div`
 `;
 
 export interface CustomDropdownProps<R extends BaseModel> {
-    data: Map<string, R>;
+    url: string;
+    type: "CATEGORY" | "GENDER";
+    name?: string;
+    form?: FormProps;
 }
 
-const CustomDropdown = <T extends BaseModel>({data}: CustomDropdownProps<T>) => {
-    const [choice, setChoice] = useState<string | undefined>("");
-    const [list, setList] = useState<T[]>();
+const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDropdownProps<T>) => {
+    const [choice, setChoice] = useState<T | null>(null);
+    const {status, data: values, error} = useFetch(url);
+
+    const ctrl = new SearchingController();
+
+    const income = ctrl.formatData<T>(values.data ?? [], type);
 
     useEffect(() => {
-        setList(Array.from(data.values()));
-        setChoice(data.get("all")?.name);
+        if(form) {
+            form?.register({name: name ?? ""}, {required: true});
+        }
     }, []);
 
+    useEffect(() => {
+        setChoice(income.get("all"));
+    }, [url]);
+
     const selectHandler = useCallback((e: any) => {
-        console.log(e);
-        setChoice(data.get(e.value)?.name);
+        setChoice(old => income.get(e.value));
+        if(name) {
+            if(form) {
+                form?.setValue(name, e.value);
+            }
+        }
     }, [choice, setChoice]);
 
     return (
-        <DropdownWrapper>
-            <Menu
-                onItemClick={selectHandler}
+        <DropdownWrapper form={form}>
+            <Menu onItemClick={selectHandler}
                 overflow={"auto"}
                 position={"initial"}
-                menuButton={<MenuButton className={"szh-menu-button"}>{choice ?? "All"} &nbsp; <FaChevronDown/></MenuButton>} transition>
+                menuButton={<MenuButton className={"szh-menu-button"}>{(choice?.name ?? "") ?? "All"} &nbsp; <FaChevronDown/></MenuButton>} transition>
                 {
-                    (list ?? []).map((item: IGender) => {
+                    (ctrl.getList(type) ?? []).map((item: any) => {
                         return (
-                            <MenuItem key={KeyBuilder.build} value={item.id}>{item.name}</MenuItem>
+                            <MenuItem className={item?.id === choice?.id ? "activated" : ""} key={KeyBuilder.build} value={item.id}>{item.name}</MenuItem>
                         );
                     })
                 }

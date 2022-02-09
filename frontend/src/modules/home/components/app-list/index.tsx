@@ -5,14 +5,13 @@ import EmptyStateUI from "../../../../common/empty-state";
 import {AppListWrapper} from "./style/default";
 import {IApp} from "../../../../model/IApp";
 import KeyBuilder from "../../../../utils/KeyBuilder";
+import { apiHost } from "../../../../constants";
 
 const AppListUI = () => {
 
-    const {status, data, error} = useFetch("https://reqres.in/api/users?page=2");
+    const {status, data, error} = useFetch(`${apiHost}/applications`);
 
-    console.log(status, data, error);
-
-    if(status === "fetching") return <>Loading...</>
+    if(status === "fetching") return <>Loading...</>;
     if(status === "error" || data.data.length <= 0) return <EmptyStateUI/>;
 
     const values = data.data ?? [];
