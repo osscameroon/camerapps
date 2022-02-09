@@ -83,3 +83,9 @@ export type PaginatedApplicationListData = DataArrayResponse<{
   items: Application[];
   nextToken: string | null;
 }>;
+
+export type SummaryData = DataResponse<{
+  application: number;
+  category: number;
+  genre: number;
+}>;
