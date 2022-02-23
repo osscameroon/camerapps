@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {size} from "../../../../../constants";
 
-export const AppListWrapper = styled.div`
+export const AppViewWrapper = styled.div`
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

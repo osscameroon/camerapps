@@ -8,6 +8,7 @@ import {AiOutlineLink} from "react-icons/ai";
 const AppCardWrapper = styled.a`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   padding: 1em;
   position: relative;
 
@@ -26,7 +27,7 @@ const AppCardWrapper = styled.a`
   }
   
   img {
-    width: 60px;
+    max-height: 60px;
   }
   
   &::after {
@@ -70,7 +71,7 @@ const AppCardWrapper = styled.a`
     margin-top: 1em;
     display: flex;
     
-    button, a {
+    a, a {
       border: none;
       background-color: #eee;
       height: 30px;
@@ -98,16 +99,28 @@ const AppCardUI = ({app}: AppCardProps) => {
 
     return (
         <AppCardWrapper>
-            <img src={appLogo} alt="app's logo"/>
-            <strong>Lorem ipsum</strong>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <img src={app?.logoUrl ?? appLogo} alt={app?.name + "'s logo"}/>
+            <strong>{app?.name}</strong>
+            <p>{app?.description}</p>
             <div className="accounts">
-                <button className={""}><FaFacebookF color={"#ccc"} size={17} /></button>
-                <button className={""}><FaSlack color={"#ccc"} size={17} /></button>
-                <button className={""}><FaTwitter color={"#ccc"} size={17} /></button>
-                <button className={""}><FaGithub color={"#ccc"} size={17} /></button>
-                <button className={""}><FaLinkedinIn color={"#ccc"} size={17} /></button>
-                <a href={"#"} target={"_blank"}><AiOutlineLink color={"#ccc"} size={17} /></a>
+                {
+                    app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} className={""}><FaFacebookF color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?. slackUrl && <a href={app?.slackUrl} target={"_blank"} className={""}><FaSlack color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.twitterUrl && <a href={app?.twitterUrl} target={"_blank"} className={""}><FaTwitter color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.githubUrl && <a href={app?.githubUrl} target={"_blank"} className={""}><FaGithub color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.linkedInUrl && <a href={app?.linkedInUrl} target={"_blank"} className={""}><FaLinkedinIn color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.websiteUrl && <a href={app?.websiteUrl} target={"_blank"}><AiOutlineLink color={"#ccc"} size={17} /></a>
+                }
             </div>
         </AppCardWrapper>
     );

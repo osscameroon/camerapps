@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'mobx-react';
+import AppStore from './stores/AppStore';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider AppStore={AppStore}>
+        <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

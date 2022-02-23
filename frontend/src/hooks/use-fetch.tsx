@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {useEffect, useReducer, useRef} from "react";
 import {ActionType} from "../model/ActionType";
 
@@ -8,6 +9,7 @@ export const useFetch = (url: string) => {
         error: null,
         data: [],
     };
+    let cancelRequest = false;
 
     const [state, dispatch] = useReducer((state: any, action: ActionType) => {
         switch (action.type) {
@@ -22,10 +24,7 @@ export const useFetch = (url: string) => {
         }
     }, initialState);
 
-    useEffect(() => {
-        let cancelRequest = false;
-        if (!url) return;
-
+    const fetchList = useCallback(() => {
         const fetchData = async () => {
             dispatch({ type: 'LOADING' });
             if (cache?.current[url]) {
@@ -46,11 +45,20 @@ export const useFetch = (url: string) => {
         };
 
         fetchData();
+    }, [url])
+
+    useEffect(() => {
+        if (!url) return;
+
+        fetchList();
 
         return function cleanup() {
             cancelRequest = true;
         };
-    }, [url]);
+    }, [fetchList]);
 
-    return state;
+    return {
+        ...state,
+        refetch: fetchList
+    };
 };

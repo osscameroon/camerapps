@@ -10,6 +10,7 @@ import {size} from "../../../../constants";
 import { useFetch } from "../../../../hooks/use-fetch";
 import SearchingController from "./../../controller";
 import { FormProps } from "../../../../model/FormProps";
+import AppStore from "../../../../stores/AppStore";
 
 const DropdownWrapper = styled.div<{form?: FormProps}>`
   width: ${props => props.form ? "100%" : "50%"};
@@ -40,6 +41,10 @@ const DropdownWrapper = styled.div<{form?: FormProps}>`
   .szh-menu {
     max-height: 250px;
     overflow-y: scroll;
+
+    ${props => props.form ? {
+      width: "100%"
+    } : undefined}
   }
   
   &:first-child {
@@ -79,20 +84,22 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDrop
         if(form) {
             form?.register({name: name ?? ""}, {required: true});
         }
+        setChoice(income.get("all"));
     }, []);
 
     useEffect(() => {
-        setChoice(income.get("all"));
-    }, [url]);
+        setChoice(old => old);
+    }, [choice]);
 
-    const selectHandler = useCallback((e: any) => {
+    const selectHandler = (e: any) => {
         setChoice(old => income.get(e.value));
         if(name) {
+            AppStore.setSearchInput(name, e.value);
             if(form) {
                 form?.setValue(name, e.value);
             }
         }
-    }, [choice, setChoice]);
+    }
 
     return (
         <DropdownWrapper form={form}>

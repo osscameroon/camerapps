@@ -20,26 +20,34 @@ const InputTextWrapper = styled.div`
       border-width: 2px;
     }
   }
+  
+  .error-message {
+    color: red;
+    font-size: .8em;
+  }
 `;
 
-export type InputType = "textarea" | "input";
+export type InputType = "textarea" | "input" | "file";
 
 interface InputTextProps <TFieldValues extends FieldValues = FieldValues> {
     name: string;
     labelText: string;
     defaultValue?: string;
     type?: string;
+    errors: any;
     elementType?: InputType;
     rows?: number;
     required: boolean;
+    invalid?: boolean;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
     register<TFieldElement extends FieldElement<TFieldValues>>(ref: (TFieldElement & Ref) | null, rules?: RegisterOptions): void;
     setValue(name: FieldName<TFieldValues>, value: SetFieldValue<TFieldValues>, config?: SetValueConfig): void;
 }
 
-const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, type = "text", placeholder = "", required = false, elementType = "input"}: InputTextProps) => {
+const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, type = "text", errors, invalid, placeholder = "", required = false, elementType = "input", onChange}: InputTextProps) => {
 
-    register({name}, {required});
+    // register({name}, {required});
 
     const constructElement = () => {
         switch (elementType) {
@@ -47,6 +55,7 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
                 return <textarea
                     name={name}
                     rows={rows}
+                    ref={register}
                     required={required}
                     placeholder={placeholder}
                     defaultValue={defaultValue}
@@ -56,6 +65,17 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
                 return <input
                     type={type}
                     name={name}
+                    ref={register}
+                    required={required}
+                    placeholder={placeholder}
+                    defaultValue={defaultValue}
+                />
+                break;
+            case "file":
+                return <input
+                    type={type}
+                    name={name}
+                    onChange={onChange}
                     required={required}
                     placeholder={placeholder}
                     defaultValue={defaultValue}
@@ -67,6 +87,9 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
     return <InputTextWrapper>
         <label htmlFor={name}>{labelText}</label>
         {constructElement()}
+        {
+            (errors && errors[name]) && <span className={"error-message"}>{errors[name]?.message}</span>
+        }
     </InputTextWrapper>
 
 }

@@ -6,12 +6,15 @@ export interface IApp extends BaseModel{
     author?: string;
     description?: string;
     email?: string;
-    logo?: string;
-    slack?: string;
-    facebook?: string;
-    twitter?: string;
-    linkedIn?: string;
-    github?: string;
+    logoUrl?: string;
+    slackUrl?: string;
+    facebookUrl?: string;
+    twitterUrl?: string;
+    linkedInUrl?: string;
+    githubUrl?: string;
     gender?: IGender;
+    websiteUrl?: string;
     category?: ICategory;
+    categoryId?: string;
+    genreId?: string;
 }

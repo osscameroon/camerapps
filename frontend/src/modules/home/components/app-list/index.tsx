@@ -1,31 +1,26 @@
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import {useFetch} from "../../../../hooks/use-fetch";
 import AppCardUI from "./children/app-card";
+import AppViewUI from "./children/app-view";
 import EmptyStateUI from "../../../../common/empty-state";
-import {AppListWrapper} from "./style/default";
 import {IApp} from "../../../../model/IApp";
 import KeyBuilder from "../../../../utils/KeyBuilder";
 import { apiHost } from "../../../../constants";
+import AppStore from "../../../../stores/AppStore";
 
 const AppListUI = () => {
 
-    const {status, data, error} = useFetch(`${apiHost}/applications`);
+    const {status, data: {data}, error} = useFetch(`${apiHost}/applications`);
 
     if(status === "fetching") return <>Loading...</>;
-    if(status === "error" || data.data.length <= 0) return <EmptyStateUI/>;
+    if(status === "error") return <EmptyStateUI/>;
 
-    const values = data.data ?? [];
+    const values = data.items ?? [];
+    
+    if(values.length <= 0) return <EmptyStateUI />;
 
     return (
-        <AppListWrapper>
-            {
-                values.map((item: IApp) => {
-                    return (
-                        <AppCardUI key={KeyBuilder.build} app={item} />
-                    );
-                })
-            }
-        </AppListWrapper>
+        <AppViewUI list={values} />
     );
 
 }
