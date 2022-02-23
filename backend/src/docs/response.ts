@@ -213,10 +213,20 @@ const applicationListResponseSchema = {
   description: 'List of applications retrieved successfully',
   properties: {
     data: {
-      items: {
-        $ref: '#/components/schemas/applicationResponse',
+      properties: {
+        items: {
+          items: {
+            $ref: '#/components/schemas/applicationResponse',
+          },
+          type: 'array',
+        },
+        nextToken: {
+          example: '1644272953769',
+          required: true,
+          type: 'string',
+        },
       },
-      type: 'array',
+      type: 'object',
     },
   },
   type: 'object',

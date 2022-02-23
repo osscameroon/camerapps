@@ -4,6 +4,7 @@ import {
   ApplicationListData,
   CreateApplicationInput,
   GenericResponse,
+  PaginatedApplicationListData,
   UpdateApplicationInput,
 } from '../types/request';
 import { Category } from '../types/model';
@@ -13,6 +14,7 @@ import { pictureUploadHandler } from '../utils/upload-handler';
 import { UploadedFile } from '../types/common';
 import { nullify, undef } from '../utils/helpers';
 import { transformApplication, transformApplications } from '../utils/transformer';
+import { PAGE_LIMIT } from '../core/config';
 
 const findApplicationCategory = async (categoryId?: string, categoryName?: string): Promise<Category | null> => {
   if (categoryId) {
@@ -208,13 +210,30 @@ export const retrieveById = async (
   return res.json({ data: transformApplication(application) });
 };
 
-export const retrieveAll = async (req: Request, res: Response): Promise<Response<ApplicationListData>> => {
-  const applications = await prisma.application.findMany({
+export const retrieveAll = async (req: Request, res: Response): Promise<Response<PaginatedApplicationListData>> => {
+  const cursor = req.query.nextToken as string;
+
+  const limit = Math.min(30, PAGE_LIMIT);
+
+  // If the limit is 10, we fetch 11 which help to know if there still more data in the table
+  const limitPlusOne = limit + 1;
+
+  const list = await prisma.application.findMany({
     include: {
       category: { select: { id: true, name: true } },
       genre: { select: { id: true, name: true } },
     },
+    orderBy: { createdAt: 'desc' },
+    take: limitPlusOne,
+    where: cursor ? { createdAt: { lte: new Date(parseInt(cursor, 10)) } } : {},
   });
 
-  return res.json({ data: transformApplications(applications) });
+  const nextCursor = list.length === limitPlusOne ? list[list.length - 1].createdAt.getTime() : null;
+
+  return res.json({
+    data: {
+      items: transformApplications(list.slice(0, limit)),
+      nextToken: nextCursor,
+    },
+  });
 };

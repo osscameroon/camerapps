@@ -79,3 +79,13 @@ export type GenreListData = DataArrayResponse<Genre>;
 
 export type ApplicationData = DataResponse<Application>;
 export type ApplicationListData = DataArrayResponse<Application>;
+export type PaginatedApplicationListData = DataArrayResponse<{
+  items: Application[];
+  nextToken: string | null;
+}>;
+
+export type SummaryData = DataResponse<{
+  application: number;
+  category: number;
+  genre: number;
+}>;

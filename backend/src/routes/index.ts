@@ -28,7 +28,7 @@ export const initializeRoutes = (app: express.Application) => {
   app.use(errorHandlerMiddleware);
 
   app.use('/', router);
-  app.use('/documentation', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
+  app.use('/documentation', swaggerUi.serve, swaggerUi.setup(apiDocumentation, { customSiteTitle: 'CamerApps API' }));
 
   // default route
   app.use('/', defaultRoute());

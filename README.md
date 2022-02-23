@@ -8,9 +8,24 @@ These tools must be installed to run the project
 * Yarn or NPM
 * Docker and Docker-compose
 
-# Run the backend
+# Run the backend with Docker
 ```shell
 docker-compose up --build
+```
+Once done, navigate to the URL [http://localhost:8100](http://localhost:8100)
+
+# Run the backend without Docker
+```shell
+cp .env.template .env
+nano .env
+```
+Update the `DATABASE_URL` inside the .env file with the URL of your local MySQL database.
+
+Install the dependencies and run the migrations
+```shell
+yarn install
+yarn prisma migrate dev
+yarn start
 ```
 Once done, navigate to the URL [http://localhost:8100](http://localhost:8100)
 
