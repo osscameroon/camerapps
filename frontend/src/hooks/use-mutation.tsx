@@ -58,6 +58,8 @@ export const useMutation = (url: string) => {
             }
         }
 
+        console.log(body);
+
         dispatch({ type: 'LOADING' });
         if (cache?.current[url]) {
             const data = cache?.current[url];
@@ -68,7 +70,7 @@ export const useMutation = (url: string) => {
                     url: url,
                     data: body,
                     method: method,
-                    headers: headers && {
+                    headers: headers ?? {
                         'Content-Type': 'multipart/form-data; boundary=camerapps'
                     }
                 }).then(async (res: any) => {
