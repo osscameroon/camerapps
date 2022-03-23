@@ -40,6 +40,7 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
   try {
     result = await pictureUploadHandler(req, res);
   } catch (e: any) {
+    console.log("error >>> ", e);
     return res.status(422).json({ errors: [e.message] });
   }
 
