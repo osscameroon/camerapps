@@ -54,10 +54,32 @@ class AppStore {
         const values = Array.from(this.list.keys() ?? []);
         values.forEach(item => {
             const key = item.toLowerCase();
-            const isFound = key.includes((this.searchInput?.name ?? "").toLowerCase())
-                || key.includes(this.searchInput?.categoryId ?? "all")
-                || key.includes(this.searchInput?.genderId ?? "all");
-            if(isFound) {
+            let nameFound = true;
+            let categoryFound = true;
+            let genderFound = true;
+            if(this.searchInput?.name) {
+                nameFound = key.includes((this.searchInput?.name).toLowerCase());
+                console.log("in name >>>", nameFound);
+            }
+            if(this.searchInput?.categoryId) {
+                if(this.searchInput?.categoryId.toLocaleLowerCase() === "all") {
+                    categoryFound = true;
+                } else {
+                    categoryFound = key.includes(this.searchInput?.categoryId ?? "all");
+                }
+                console.log("in category >>>", categoryFound, this.searchInput?.categoryId);
+            }
+            if(this.searchInput?.genderId) {
+                if(this.searchInput?.genderId.toLocaleLowerCase() === "all") {
+                    genderFound = true;
+                } else {
+                    genderFound = key.includes(this.searchInput?.genderId ?? "all");
+                }
+
+                console.log("in gender >>>", genderFound, this.searchInput?.genderId);
+            }
+            console.log(this.searchInput, nameFound, categoryFound, genderFound);
+            if(nameFound && categoryFound && genderFound) {
                 const elt: any = this.list.get(item);
                 this.resultSearch.set(elt?.name + "/" + elt?.genreId + "/" + elt?.categoryId, elt);
             }

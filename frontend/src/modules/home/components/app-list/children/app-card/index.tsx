@@ -18,6 +18,11 @@ const AppCardWrapper = styled.a`
   border-radius: 3px;
   transition: .3s;
   
+  ._flex {
+    display: inline-flex;
+    gap: 5px;
+  }
+  
   strong {
     margin: .5em 0em 1em 0 ;
   }
@@ -91,6 +96,15 @@ const AppCardWrapper = styled.a`
   }
 `;
 
+const Tag = styled.div`
+  padding: .3em .5em;
+  background-color: #f1f1f1;
+  border-radius: 50px;
+  font-size: .8em;
+  font-style: italic;
+  margin-top: 1em;
+`;
+
 interface AppCardProps {
     app: IApp
 }
@@ -102,6 +116,10 @@ const AppCardUI = ({app}: AppCardProps) => {
             <img src={app?.logoUrl ?? appLogo} alt={app?.name + "'s logo"}/>
             <strong>{app?.name}</strong>
             <p>{app?.description}</p>
+            <div className="_flex">
+                <Tag>{app?.category?.name ?? ""}</Tag>
+                <Tag>{app?.genre?.name ?? ""}</Tag>
+            </div>
             <div className="accounts">
                 {
                     app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} className={""}><FaFacebookF color={"#ccc"} size={17} /></a>

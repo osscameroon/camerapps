@@ -12,7 +12,7 @@ export interface IApp extends BaseModel{
     twitterUrl?: string;
     linkedInUrl?: string;
     githubUrl?: string;
-    gender?: IGender;
+    genre?: IGender;
     websiteUrl?: string;
     category?: ICategory;
     categoryId?: string;
