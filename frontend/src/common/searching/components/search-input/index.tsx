@@ -9,7 +9,7 @@ const SearchInput = () => {
 
     const clear = () => {
         setValue("");
-        AppStore.clearInput();
+        AppStore.clearName();
     }
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {

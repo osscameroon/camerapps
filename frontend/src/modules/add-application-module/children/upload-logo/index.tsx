@@ -59,7 +59,7 @@ const UploadLogo = ({formProps, logo}: UploadLogoProps) => {
             const formData = new FormData();
             formData.append("file", file);
             // console.log(file, formData, reader.readAsBinaryString(file));
-            formProps.setValue("file", formData);
+            formProps.setValue("file", file);
         }
     }
 

@@ -6,14 +6,14 @@ import { apiHost } from "../../../../constants";
 
 const AppListUI = () => {
 
-    const {status, data: {data} } = useFetch(`${apiHost}/applications`);
+    const {status, data: {data}, error, refetch} = useFetch(`${apiHost}/applications`);
 
     if(status === "fetching") return <>Loading...</>;
-    if(status === "error") return <EmptyStateUI/>;
+    if(status !== "fetched") return <EmptyStateUI refetch={refetch} />;
 
     const values = data.items ?? [];
     
-    if(values.length <= 0) return <EmptyStateUI />;
+    if(values.length <= 0) return <EmptyStateUI refetch={refetch} />;
 
     return (
         <AppViewUI list={values} />

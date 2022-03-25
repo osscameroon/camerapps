@@ -49,16 +49,18 @@ export const useMutation = (url: string) => {
 
     let action = async ({body, method, onError, onSuccess, headers}: UseMutationOptions) => {
         if (!url) return;
+        const formData = new FormData();
 
         if(body?.file) {
-            console.log("file >>>");
             body = {
                 ...body,
                 ...body?.file
             }
+            Object.entries(body).forEach((item) => {
+                formData.append(item[0], item[1] as any);
+            });
+            console.log("formData >>>", formData.entries(), body?.file);
         }
-
-        console.log(body);
 
         dispatch({ type: 'LOADING' });
         if (cache?.current[url]) {
@@ -68,14 +70,13 @@ export const useMutation = (url: string) => {
             try {
                 await axios.request({
                     url: url,
-                    data: body,
+                    data: formData,
                     method: method,
-                    headers: headers ?? {
-                        'Content-Type': 'multipart/form-data; boundary=camerapps'
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
                     }
                 }).then(async (res: any) => {
                     const data = await onSuccess(res);
-                    cache.current[url] = data;
                     if (cancelRequest) return;
                     dispatch({ type: 'DONE', payload: data });
                 }).catch(onError);
@@ -86,6 +87,8 @@ export const useMutation = (url: string) => {
             }
         }
     };
+
+    console.log(state);
 
     return [action, {
         ...state,

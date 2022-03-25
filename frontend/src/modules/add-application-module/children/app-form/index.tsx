@@ -63,8 +63,7 @@ const AppFormUI = ({formProps}: AppFormUIProps) => {
 
     return <AppFormUIWrapper onSubmit={formProps.handleSubmit((data: any) => AddAppController.onSubmit(data, action), AddAppController.onErrors)}>
         <h2>Participate and add your application here</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores consequuntur dolores eveniet ex,
-            excepturi impedit.</p>
+        <p><strong className="important">VERY IMPORTANT!</strong> <br/> Make sure to fill the form well before submit please. </p>
 
         {/*<section className={"section-block personal-info"}>*/}
         {/*    <h3>Personal info</h3>*/}

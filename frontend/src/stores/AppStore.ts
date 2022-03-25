@@ -1,5 +1,5 @@
-import {action, computed, makeObservable, observable } from "mobx";
-import { IApp } from "../model/IApp";
+import {action, computed, makeObservable, observable} from "mobx";
+import {IApp} from "../model/IApp";
 
 interface ISearchInput {
     name?: string;
@@ -30,12 +30,20 @@ class AppStore {
     get getList() {
         return Array.from(this.list.values() ?? []);
     }
-    
-    clearInput () {
+
+    clearInput() {
         this.searchInput = null;
     }
 
-    async setSearchInput(name: string, value: string) {
+    clearName() {
+        this.searchInput = {
+            ...this.searchInput,
+            name: undefined
+        };
+        this.makeSearch();
+    }
+
+    async setSearchInput(name: string, value: string | undefined) {
         this.searchInput = await {
             ...this.searchInput,
             [name]: value
@@ -49,41 +57,52 @@ class AppStore {
         })
     }
 
+    partSearch(isFound: boolean, key: any) {
+        let checker = false;
+        if (this.searchInput?.categoryId) {
+            const isExists = key.includes(this.searchInput?.categoryId ? (this.searchInput?.categoryId === "all" ? "" : this.searchInput?.categoryId) : "");
+            console.log("Search input >>> ", this.searchInput?.categoryId, this.searchInput?.name, isFound, key, isExists, isFound === true && isExists === true);
+            checker = isFound ? ((isFound && isExists)) : isExists;
+            if (checker) {
+                if (this.searchInput?.genderId) {
+                    checker = key.includes(this.searchInput?.genderId ? (this.searchInput?.genderId === "all" ? "" : this.searchInput?.genderId) : "");
+                }
+            }
+        } else if (this.searchInput?.genderId) {
+            const isExists = key.includes(this.searchInput?.genderId ? (this.searchInput?.genderId === "all" ? "" : this.searchInput?.genderId) : "");
+            checker = isFound ? ((isFound && isExists)) : isExists;
+            if (checker) {
+                if (this.searchInput?.categoryId) {
+                    checker = key.includes(this.searchInput?.categoryId ? (this.searchInput?.categoryId === "all" ? "" : this.searchInput?.categoryId) : "");
+                }
+            }
+        }
+        return checker;
+    }
+
+    get getResultsLength() {
+        const list = Array.from(this.resultSearch.keys() ?? []);
+        return list.length ?? 0;
+    }
+
     makeSearch() {
         this.resultSearch.clear();
-        const values = Array.from(this.list.keys() ?? []);
-        values.forEach(item => {
-            const key = item.toLowerCase();
-            let nameFound = true;
-            let categoryFound = true;
-            let genderFound = true;
-            if(this.searchInput?.name) {
-                nameFound = key.includes((this.searchInput?.name).toLowerCase());
-                console.log("in name >>>", nameFound);
-            }
-            if(this.searchInput?.categoryId) {
-                if(this.searchInput?.categoryId.toLocaleLowerCase() === "all") {
-                    categoryFound = true;
-                } else {
-                    categoryFound = key.includes(this.searchInput?.categoryId ?? "all");
+        const values = Array.from((this.list.keys()) ?? []);
+        if(!this.searchInput?.name && !this.searchInput?.categoryId && !this.searchInput?.genderId) {
+            this.clearInput();
+        } else {
+            values.forEach(item => {
+                let isFound: boolean = false;
+                const key = item.toLowerCase();
+                const isNameExists = key.includes((this.searchInput?.name ?? "nothing").toLowerCase());
+                isFound = this.partSearch(isNameExists, key);
+                console.log("isFound >>> ", isFound);
+                if (isFound) {
+                    const elt: any = this.list.get(item);
+                    this.resultSearch.set(elt?.name + "/" + elt?.genreId + "/" + elt?.categoryId, elt);
                 }
-                console.log("in category >>>", categoryFound, this.searchInput?.categoryId);
-            }
-            if(this.searchInput?.genderId) {
-                if(this.searchInput?.genderId.toLocaleLowerCase() === "all") {
-                    genderFound = true;
-                } else {
-                    genderFound = key.includes(this.searchInput?.genderId ?? "all");
-                }
-
-                console.log("in gender >>>", genderFound, this.searchInput?.genderId);
-            }
-            console.log(this.searchInput, nameFound, categoryFound, genderFound);
-            if(nameFound && categoryFound && genderFound) {
-                const elt: any = this.list.get(item);
-                this.resultSearch.set(elt?.name + "/" + elt?.genreId + "/" + elt?.categoryId, elt);
-            }
-        });
+            });
+        }
     }
 
     get getSearchResults() {

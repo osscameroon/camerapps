@@ -33,9 +33,27 @@ const EmptyWrapper = styled.div`
       width: 250px;
     }
   }
+  
+  .btn--refetch {
+    border: none;
+    border: 2px solid #000;
+    background-color: transparent;
+    margin-top: 1em;
+    font-size: .7em;
+    color: #000;
+    
+    &:hover {
+      background-color: #000;
+      color: white;
+    }
+  }
 `;
 
-const EmptyStateUI = () => {
+interface EmptyStateUIProps {
+    refetch?: any;
+}
+
+const EmptyStateUI = ({refetch}: EmptyStateUIProps) => {
 
     return (
         <EmptyWrapper>
@@ -44,6 +62,9 @@ const EmptyStateUI = () => {
                 <img src={EmptyStateImage} className={"icon-empty"} alt="Empty state gif"/>
                 <strong>No results found!</strong>
                 <p>It seems we can’t find any results based on your search.</p>
+                {
+                    refetch ? <button className="btn btn--refetch" type={"button"} onClick={refetch}>Refresh</button> : null
+                }
             </div>
         </EmptyWrapper>
     );
