@@ -61,7 +61,6 @@ class AppStore {
         let checker = false;
         if (this.searchInput?.categoryId) {
             const isExists = key.includes(this.searchInput?.categoryId ? (this.searchInput?.categoryId === "all" ? "" : this.searchInput?.categoryId) : "");
-            console.log("Search input >>> ", this.searchInput?.categoryId, this.searchInput?.name, isFound, key, isExists, isFound === true && isExists === true);
             checker = isFound ? ((isFound && isExists)) : isExists;
             if (checker) {
                 if (this.searchInput?.genderId) {
@@ -87,22 +86,34 @@ class AppStore {
 
     makeSearch() {
         this.resultSearch.clear();
-        const values = Array.from((this.list.keys()) ?? []);
-        if(!this.searchInput?.name && !this.searchInput?.categoryId && !this.searchInput?.genderId) {
-            this.clearInput();
-        } else {
-            values.forEach(item => {
-                let isFound: boolean = false;
-                const key = item.toLowerCase();
-                const isNameExists = key.includes((this.searchInput?.name ?? "nothing").toLowerCase());
-                isFound = this.partSearch(isNameExists, key);
-                console.log("isFound >>> ", isFound);
-                if (isFound) {
-                    const elt: any = this.list.get(item);
-                    this.resultSearch.set(elt?.name + "/" + elt?.genreId + "/" + elt?.categoryId, elt);
+        const values = Array.from(this.list.keys() ?? []);
+        values.forEach(item => {
+            const key = item.toLowerCase();
+            let nameFound = true;
+            let categoryFound = true;
+            let genderFound = true;
+            if(this.searchInput?.name) {
+                nameFound = key.includes((this.searchInput?.name).toLowerCase());
+            }
+            if(this.searchInput?.categoryId) {
+                if(this.searchInput?.categoryId.toLocaleLowerCase() === "all") {
+                    categoryFound = true;
+                } else {
+                    categoryFound = key.includes(this.searchInput?.categoryId ?? "all");
                 }
-            });
-        }
+            }
+            if(this.searchInput?.genderId) {
+                if(this.searchInput?.genderId.toLocaleLowerCase() === "all") {
+                    genderFound = true;
+                } else {
+                    genderFound = key.includes(this.searchInput?.genderId ?? "all");
+                }
+            }
+            if(nameFound && categoryFound && genderFound) {
+                const elt: any = this.list.get(item);
+                this.resultSearch.set(elt?.name + "/" + elt?.genreId + "/" + elt?.categoryId, elt);
+            }
+        });
     }
 
     get getSearchResults() {

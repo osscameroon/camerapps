@@ -2,7 +2,7 @@ import {memo} from "react";
 import styled from "styled-components";
 import appLogo from "../../../../../../assets/images/app.svg";
 import {IApp} from "../../../../../../model/IApp";
-import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn} from "react-icons/fa";
+import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn, FaGooglePlay, FaAppStoreIos} from "react-icons/fa";
 import {AiOutlineLink} from "react-icons/ai";
 
 const AppCardWrapper = styled.a`
@@ -122,7 +122,13 @@ const AppCardUI = ({app}: AppCardProps) => {
             </div>
             <div className="accounts">
                 {
-                    app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} rel="noreferrer" className={""}><FaFacebookF color={"#ccc"} size={17} /></a>
+                    app?.playstoreUrl && <a href={app?.playstoreUrl} target={"_blank"} className={""}><FaGooglePlay color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.appstoreUrl && <a href={app?.appstoreUrl} target={"_blank"} className={""}><FaAppStoreIos color={"#ccc"} size={17} /></a>
+                }
+                {
+                    app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} className={""}><FaFacebookF color={"#ccc"} size={17} /></a>
                 }
                 {
                     app?.slackUrl && <a href={app?.slackUrl} target={"_blank"} rel="noreferrer" className={""}><FaSlack color={"#ccc"} size={17} /></a>

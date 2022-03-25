@@ -11,6 +11,8 @@ export interface IApp extends BaseModel{
     facebookUrl?: string;
     twitterUrl?: string;
     linkedInUrl?: string;
+    playstoreUrl?: string;
+    appstoreUrl?: string;
     githubUrl?: string;
     genre?: IGender;
     websiteUrl?: string;
