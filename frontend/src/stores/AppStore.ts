@@ -35,6 +35,12 @@ class AppStore {
         this.searchInput = null;
     }
 
+    clearStore() {
+        this.searchInput = null;
+        this.resultSearch = new Map<string, IApp>([]);
+        this.list = new Map<string, IApp>([]);
+    }
+
     clearName() {
         this.searchInput = {
             ...this.searchInput,
