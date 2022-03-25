@@ -4,7 +4,8 @@ import { IApp } from "../../../../../../model/IApp";
 import AppStore from "../../../../../../stores/AppStore";
 import KeyBuilder from "../../../../../../utils/KeyBuilder";
 import AppCardUI from "./../../children/app-card";
-import {AppViewWrapper} from "../../style/default";
+import {AppViewWrapper} from "./../../style/default";
+import EmptyStateUI from "./../../../../../../common/empty-state";
 
 interface AppViewProps {
     list: Array<IApp>;
@@ -15,6 +16,10 @@ const AppViewUI = ({list = []}: AppViewProps) => {
     useEffect(() => {
         AppStore.setList(list);
     }, [list])
+
+    if(!(AppStore.searchInput === null ? AppStore.getList : AppStore.getSearchResults) || (AppStore.searchInput === null ? AppStore.getList : AppStore.getSearchResults)?.length === 0) {
+        return <EmptyStateUI />;
+    }
 
     return (
         <AppViewWrapper>
