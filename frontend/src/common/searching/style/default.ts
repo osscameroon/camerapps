@@ -2,10 +2,9 @@ import styled from "styled-components";
 import {size} from "../../../constants";
 
 export const SearchingWrapper = styled.form<{visible?: boolean}>`
-  height: 50px;
+  min-height: 50px;
   min-width: 100px;
   max-width: 800px;
-  width: 100%;
   background-color: transparent;
   border-radius: 5px;
   z-index: 9;
@@ -13,7 +12,7 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
   
   display: flex;
   align-items: center;
-  margin-left: 3rem;
+  margin: 0 3rem;
   
   .dropdowns {
     width: 40%;
@@ -26,7 +25,7 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
   
   @media (max-width: ${size.tablet}) {
     position: relative;
-    width: 100%;
+    //width: 100%;
     top: 0;
     box-shadow: none;
     //background-color: #f1f1f1;
@@ -37,12 +36,18 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
     height: 100px;
     border-radius: 0;
     padding: 0;
+  }
+  
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
     
     .dropdowns {
-      height: 60px;
-      width: calc(100% - 20px);
-      justify-content: flex-start;
+      width: 100%;
     }
   }
   
+  @media (max-width: ${size.tablet}) {
+    margin: 0 2rem;
+  }
 `;

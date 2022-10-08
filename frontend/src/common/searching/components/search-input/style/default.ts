@@ -5,8 +5,7 @@ export const SearchInputWrapper = styled.div`
   width: 60%;
   display: flex;
   align-items: center;
-  padding: 0 10px;
-  height: 90%;
+  padding: .6rem 0;
   border-radius: 5px;
 
   background-color: ${({theme}) => theme.secondary};
@@ -15,6 +14,10 @@ export const SearchInputWrapper = styled.div`
   button {
     border: none;
     background-color: transparent;
+  }
+  
+  .search--icon {
+    margin-left: 1rem;
   }
 
   .search {
@@ -28,10 +31,8 @@ export const SearchInputWrapper = styled.div`
     font-size: 1em;
     color: #666;
   }
-
-  @media (max-width: ${size.tablet}) {
-    border-right: none;
-    width: calc(100% - 20px);
-    height: 60px;
+  
+  @media (max-width: 900px) {
+    width: 100%;
   }
 `;

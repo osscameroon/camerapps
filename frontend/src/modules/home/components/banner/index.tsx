@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LinkButton from "../../../../common/link-button";
 import {size} from "../../../../constants";
 import {FaGithub} from "react-icons/fa";
+import ALinkButton from "../../../../common/alink-button";
 
 const BannerWrapper = styled.div`
   margin: 0 3rem;
@@ -39,6 +40,22 @@ const BannerWrapper = styled.div`
       line-height: 27px;
     }
   }
+  
+  @media (max-width: ${size.tablet}) {
+    margin: 0 1rem;
+  }
+  
+  @media (max-width: ${size.mobileL}) {
+    ._content {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
 `;
 
 type BannerProps = {}
@@ -51,10 +68,10 @@ const Banner = ({}: BannerProps) => {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa dolor eaque facilis numquam obcaecati
                 sapiente, sunt totam vitae? Blanditiis eligendi, et facilis laboriosam nobis quam saepe sapiente similique
                 velit.</p>
-            <LinkButton href={"/"} type={"plain"} size={"large"}>
+            <ALinkButton href={"https://github.com/osscameroon"} type={"plain"} size={"large"}>
                 <FaGithub className={"btn-adder__icon"}/>
                 Join the community
-            </LinkButton>
+            </ALinkButton>
         </div>
     </BannerWrapper>
 
