@@ -9,7 +9,7 @@ export const AppViewWrapper = styled.div`
   grid-auto-flow: dense;
   width: 100%;
   
-  padding: 4em 3em;
+  padding: 1em 3rem 4rem 3em;
 
   @media (max-width: ${size.tablet}) {
     width: auto;

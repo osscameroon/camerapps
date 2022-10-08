@@ -1,6 +1,5 @@
 import {memo} from "react";
 import styled from "styled-components";
-import appLogo from "../../../../../../assets/images/app.svg";
 import {IApp} from "../../../../../../model/IApp";
 import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn, FaGooglePlay, FaAppStoreIos, FaEdit} from "react-icons/fa";
 import {AiOutlineLink} from "react-icons/ai";
@@ -121,7 +120,7 @@ const AppCardWrapper = styled.div`
 
 const Tag = styled.div`
   padding: .3em .5em;
-  background-color: #f1f1f1;
+  background-color: ${({theme}) => theme.secondary};
   border-radius: 50px;
   font-size: .8em;
   font-style: italic;
@@ -142,7 +141,7 @@ const AppCardUI = ({app}: AppCardProps) => {
 
     return (
         <AppCardWrapper>
-            <img src={app?.logoUrl ?? appLogo} alt={app?.name + "'s logo"}/>
+            <img src={app?.logoUrl ?? "/logo.svg"} alt={app?.name + "'s logo"}/>
             <strong>{app?.name}</strong>
             <p>{app?.description}</p>
             <div className="_flex">

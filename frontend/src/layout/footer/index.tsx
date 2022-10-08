@@ -6,12 +6,16 @@ import {size} from "../../constants";
 const FooterWrapper = styled.div`
   display: flex;
   height: 60px;
-  background-color: #f1f1f1;
+  background-color: ${({theme}) => theme.secondary};
   padding: 0 8em;
   align-items: center;
   justify-content: space-between;
   
   color: #333;
+  
+  a {
+    color: ${({theme}) => theme.primary};
+  }
   
   .accounts {
     display: flex;
@@ -19,6 +23,8 @@ const FooterWrapper = styled.div`
     
     a {
       margin-left: 1em;
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -55,7 +61,7 @@ const FooterUI = () => {
     return (
         <FooterWrapper>
             <span className="copyright-text">
-                © {(new Date()).getFullYear()} OSS Cameroon, All rights reserved.
+                © {(new Date()).getFullYear()} <a href="https://github.com/osscameroon" target={"_blank"}>OSS Cameroon</a>, All rights reserved.
             </span>
             <div className="accounts">
                 <span>Follow our community </span>

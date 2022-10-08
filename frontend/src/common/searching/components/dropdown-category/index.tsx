@@ -5,25 +5,29 @@ import {Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import {BaseModel} from "../../../../model/BaseModel";
-import KeyBuilder from "../../../../utils/KeyBuilder";
 import {size} from "../../../../constants";
 import { useFetch } from "../../../../hooks/use-fetch";
 import SearchingController from "./../../controller";
 import { FormProps } from "../../../../model/FormProps";
 import AppStore from "../../../../stores/AppStore";
+import {theme} from "../../../../theme";
 
 const DropdownWrapper = styled.div<{form?: FormProps}>`
-  width: ${props => props.form ? "100%" : "50%"};
+  width: ${props => props.form ? "" : "50%"};
   height: 90%;
   display: flex;
   justify-content: center;
+  border-radius: 5px;
+  border: 2px solid ${({theme}) => theme.borderColor};
   
   ${props => props.form ? {
       marginTop: ".5em",
       borderRadius: "10px",
     backgroundColor: "#fff",
-    border: "1px solid #000"
-  } : undefined}
+    border: '2px solid ' + theme.borderColor
+  } : {
+      backgroundColor: theme.secondary
+  }}
   
   .szh-menu-button {
     ${props => props.form ? {
@@ -48,7 +52,7 @@ const DropdownWrapper = styled.div<{form?: FormProps}>`
   }
   
   &:first-child {
-    border-right: 2px solid #ddd;
+    //border-right: 2px solid #ddd;
   }
   
   .activated {
@@ -120,9 +124,9 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValu
                 position={"initial"}
                 menuButton={<MenuButton className={"szh-menu-button"}>{(choice?.name)} &nbsp; <FaChevronDown/></MenuButton>} transition>
                 {
-                    (ctrl.getList(type) ?? []).map((item: any) => {
+                    (ctrl.getList(type) ?? []).map((item: any, index) => {
                         return (
-                            <MenuItem className={item?.id === choice?.id ? "activated" : ""} key={KeyBuilder.build} value={item.id}>{item.name}</MenuItem>
+                            <MenuItem className={item?.id === choice?.id ? "activated" : ""} key={index} value={item.id}>{item.name}</MenuItem>
                         );
                     })
                 }

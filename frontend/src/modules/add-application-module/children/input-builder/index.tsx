@@ -9,12 +9,13 @@ const InputTextWrapper = styled.div`
   flex-direction: column;
   
   input, textarea {
-    padding: .7em 1em;
-    border: 1px solid #000;
+    padding: .9em 1em;
     outline: none;
     border-radius: 10px;
+    border: 2px solid ${({theme}) => theme.borderColor};
     transition: all .2s 0s ease-in-out;
     font-size: .9em;
+    background-color: ${({theme}) => theme.secondary};
     
     &:focus {
       border-width: 2px;

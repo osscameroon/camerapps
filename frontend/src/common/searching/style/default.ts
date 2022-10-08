@@ -6,24 +6,14 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
   min-width: 100px;
   max-width: 800px;
   width: 100%;
-  background-color: #fff;
-  position: absolute;
-  top: -25px;
-  border-radius: 50px;
-  padding: .3em;
+  background-color: transparent;
+  border-radius: 5px;
   z-index: 9;
+  gap: 1rem;
   
   display: flex;
   align-items: center;
-  
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05),
-              0 2px 2px rgba(0,0,0,0.05),
-              0 4px 4px rgba(0,0,0,0.05),
-              0 8px 8px rgba(0,0,0,0.05),
-              0 16px 16px rgba(0,0,0,0.05);
-  
-  transform: translateX(-50%);
-  left: 50%;
+  margin-left: 3rem;
   
   .dropdowns {
     width: 40%;
@@ -31,10 +21,7 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-
-  @media (min-width: ${size.tablet}) and (max-width: ${size.laptop}) {
-    
+    gap: 1rem;
   }
   
   @media (max-width: ${size.tablet}) {

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const appName = "CM APPSTORE";
+export const appName = "CAMERAPPS";
 export const apiHost = process.env.REACT_APP_API_URL;
 
 export const size = {

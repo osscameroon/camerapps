@@ -10,6 +10,22 @@ import {useParams} from "react-router-dom";
 
 const AppFormWrapper = styled.div`
   display: flex;
+  position: relative;
+  
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 150px;
+    //background: url("/bg-form.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+    z-index: 1;
+  }
 
   .illus {
     width: 50%;
@@ -61,9 +77,6 @@ const AddApplicationModule = () => {
 
     return (
         <AppFormWrapper>
-            <div className="illus">
-                <img src={illustration} alt="Illustration form image"/>
-            </div>
             <AppFormUI id={id} formProps={form}/>
         </AppFormWrapper>
     );

@@ -7,7 +7,10 @@ export const SearchInputWrapper = styled.div`
   align-items: center;
   padding: 0 10px;
   height: 90%;
-  border-right: 2px solid #ddd;
+  border-radius: 5px;
+
+  background-color: ${({theme}) => theme.secondary};
+  border: 2px solid ${({theme}) => theme.borderColor};
 
   button {
     border: none;
@@ -20,6 +23,7 @@ export const SearchInputWrapper = styled.div`
     margin-left: 10px;
     outline: none;
     border: none;
+    background-color: transparent;
     
     font-size: 1em;
     color: #666;

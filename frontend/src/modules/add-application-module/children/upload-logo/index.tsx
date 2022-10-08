@@ -6,11 +6,12 @@ import noImage from "./../../../../assets/images/no-image.png";
 
 const UploadLogoWrapper = styled.div`
   width: 250px;
-  float: left;
-  background-color: #fafafa;
+  //background-color: #fafafa;
   border-radius: 10px;
-  padding: 1em;
   margin-right: 1em;
+  
+  display: flex;
+  flex-direction: column;
 
   .preview {
     height: 100px;

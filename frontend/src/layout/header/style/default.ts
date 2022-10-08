@@ -3,8 +3,11 @@ import {size} from "../../../constants";
 
 export const HeaderWrapper = styled.div`
   height: 60px;
-  background-color: #000;
-  padding: 0 8em;
+  padding: 0 3em;
+  position: sticky;
+  top: 0;
+  background-color: ${({theme}) => theme.white};
+  z-index: 99;
   
   .header__container {
     width: 100%;
@@ -25,6 +28,7 @@ export const HeaderWrapper = styled.div`
       margin-left: 1em;
       text-decoration: none;
       color: #fff;
+      background-color: black;
       
       display: flex;
       align-items: center;
@@ -35,8 +39,6 @@ export const HeaderWrapper = styled.div`
       }
       
       &:hover {
-        text-decoration: underline;
-        background-color: transparent;
         color: #fff;
       }
     }
@@ -46,8 +48,21 @@ export const HeaderWrapper = styled.div`
     }
   }
   
+  @media (max-width: ${size.mobileM}) {
+    .custom--add {
+      span {
+        display: none;
+      }
+    }
+  }
+  
   @media (max-width: ${size.tablet}) {
     padding: 0 1em;
+    .custom--donation {
+      span {
+        display: none;
+      }
+    }
     
     .actions {
       

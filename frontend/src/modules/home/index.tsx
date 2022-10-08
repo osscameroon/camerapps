@@ -1,9 +1,9 @@
 import React, {memo, useEffect} from "react";
-import CarouselUI from "./components/carousel";
 import {HomeWrapper} from "./style/default";
 import AppListUI from "./components/app-list";
-import SearchingUI from "../../common/searching";
 import AppStore from "../../stores/AppStore";
+import Banner from "./components/banner";
+import SearchingUI from "../../common/searching";
 
 const HomeUI = () => {
 
@@ -15,9 +15,9 @@ const HomeUI = () => {
 
     return (
         <HomeWrapper>
-            <CarouselUI/>
+            <Banner />
+            <SearchingUI />
             <div className="home-list__container">
-                <SearchingUI />
                 <AppListUI/>
             </div>
         </HomeWrapper>

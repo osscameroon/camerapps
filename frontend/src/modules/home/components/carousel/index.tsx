@@ -6,7 +6,6 @@ import CarouselController from "./controller";
 import CarouselControlUI from "./children/carousel-control";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import KeyBuilder from "../../../../utils/KeyBuilder";
 
 const CarouselUI = () => {
 
@@ -18,9 +17,9 @@ const CarouselUI = () => {
             <CarouselControlUI position={"right"} action={() => CarouselController.goNext(customSlider)} />
             <Slider className={"slider"} {...CarouselController.sliderOptions} ref={customSlider}>
                 {
-                    [1].map((_item) => {
+                    [1].map((_item, index) => {
                         return (
-                            <div className="slide-container" key={KeyBuilder.build}>
+                            <div className="slide-container" key={index}>
                                 <div className="slide__image">
                                     <img src={BannerImage} alt="Banner png"/>
                                 </div>

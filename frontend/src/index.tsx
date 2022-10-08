@@ -5,11 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'mobx-react';
 import AppStore from './stores/AppStore';
+import {ThemeProvider} from "styled-components";
+import {theme} from "./theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider AppStore={AppStore}>
-        <App />
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

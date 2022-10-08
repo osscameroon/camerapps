@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 344 344" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-1029,0)">
+        <g id="Plan-de-travail2" serif:id="Plan de travail2" transform="matrix(1,0,0,1,-0.0465443,3)">
+            <rect x="1029.05" y="-3" width="343.773" height="343.773" style="fill:none;"/>
+            <g transform="matrix(0.767667,0,0,0.767667,817.1,-214.947)">
+                <path d="M720,640L496.568,640C460.348,640 425.612,625.612 400,600C400,600 400,600 400,600C374.388,574.388 360,539.652 360,503.432L360,496.568C360,460.348 374.388,425.612 400,400C400,400 400,400 400,400C425.612,374.388 460.348,360 496.568,360L560,360L560,440C560,440 529.999,440 499.998,440C484.086,440 468.825,446.321 457.573,457.573C446.321,468.825 440,484.086 440,499.998L440,500.002C440,533.138 466.862,560 499.998,560L720,560L720,322.406C720,299.001 700.999,280 677.594,280L322.406,280C299.001,280 280,299.001 280,322.406L280,677.594C280,700.999 299.001,720 322.406,720L677.594,720C700.999,720 720,700.999 720,677.594L720,640Z" style="fill:url(#_Linear1);"/>
+            </g>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(453.173,0,0,453.173,345.161,551.985)"><stop offset="0" style="stop-color:rgb(0,179,255);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(81,169,255);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>

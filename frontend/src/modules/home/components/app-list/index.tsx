@@ -3,17 +3,18 @@ import {useFetch} from "../../../../hooks/use-fetch";
 import AppViewUI from "./children/app-view";
 import EmptyStateUI from "../../../../common/empty-state";
 import { apiHost } from "../../../../constants";
+import {useApps} from "../../../../hooks/use-apps";
 
 const AppListUI = () => {
 
-    const {status, data: {data}, error, refetch} = useFetch(`${apiHost}/applications`);
+    const {data, error, isLoading} = useApps(`${apiHost}/applications`);
 
-    if(status === "fetching") return <>Loading...</>;
-    if(status !== "fetched") return <EmptyStateUI refetch={refetch} />;
+    if(isLoading) return <>Loading...</>;
+    if(error) return <EmptyStateUI />;
 
-    const values = data.items ?? [];
+    const values = data?.data?.items ?? [];
     
-    if(values.length <= 0) return <EmptyStateUI refetch={refetch} />;
+    if(values.length <= 0) return <EmptyStateUI />;
 
     return (
         <AppViewUI list={values} />
