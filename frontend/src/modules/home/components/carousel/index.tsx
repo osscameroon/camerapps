@@ -1,5 +1,4 @@
 import React, {memo} from "react";
-import SearchingUI from "../../../../common/searching";
 import BannerImage from "../../../../assets/images/banner.jpg";
 import {CarouselWrapper} from "./style/default";
 import Slider from "react-slick";
@@ -19,7 +18,7 @@ const CarouselUI = () => {
             <CarouselControlUI position={"right"} action={() => CarouselController.goNext(customSlider)} />
             <Slider className={"slider"} {...CarouselController.sliderOptions} ref={customSlider}>
                 {
-                    [1].map((item) => {
+                    [1].map((_item) => {
                         return (
                             <div className="slide-container" key={KeyBuilder.build}>
                                 <div className="slide__image">

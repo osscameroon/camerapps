@@ -106,13 +106,23 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
 
 export const update = async (req: Request, res: Response): Promise<Response<ApplicationData | GenericResponse>> => {
   const { id } = req.params;
-  const { categoryId, genreId, ...applicationInput }: UpdateApplicationInput = req.body;
 
   const application = await prisma.application.findFirst({ where: { id } });
 
   if (!application) {
     return res.status(404).json({ message: RESOURCE_NOT_FOUND('Application', id) });
   }
+
+  let result;
+
+  try {
+    result = await pictureUploadHandler(req, res);
+  } catch (e: any) {
+    return res.status(422).json({ errors: [e.message] });
+  }
+
+  const uploadedFile: UploadedFile = result.logo;
+  const { categoryId, genreId, ...applicationInput }: UpdateApplicationInput = result.body;
 
   if (applicationInput.name) {
     const application = await prisma.application.findFirst({
@@ -152,6 +162,7 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
     genreId,
     githubUrl: undef(applicationInput.githubUrl),
     linkedinUrl: undef(applicationInput.linkedinUrl),
+    logoUrl: uploadedFile?.filename,
     name: applicationInput.name,
     othersUrl: undef(applicationInput.othersUrl),
     playstoreUrl: undef(applicationInput.playstoreUrl),

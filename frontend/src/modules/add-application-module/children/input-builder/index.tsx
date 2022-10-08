@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo} from 'react';
 import styled from "styled-components";
 import {FieldElement, FieldName, FieldValues, Ref} from "react-hook-form/dist/types/fields";
 import {RegisterOptions} from "react-hook-form/dist/types/validator";
@@ -45,7 +45,7 @@ interface InputTextProps <TFieldValues extends FieldValues = FieldValues> {
     setValue(name: FieldName<TFieldValues>, value: SetFieldValue<TFieldValues>, config?: SetValueConfig): void;
 }
 
-const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, type = "text", errors, invalid, placeholder = "", required = false, elementType = "input", onChange}: InputTextProps) => {
+const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, type = "text", errors, placeholder = "", required = false, elementType = "input", onChange}: InputTextProps) => {
 
     // register({name}, {required});
 
@@ -60,7 +60,6 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                 />
-                break;
             case "input":
                 return <input
                     type={type}
@@ -70,7 +69,6 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                 />
-                break;
             case "file":
                 return <input
                     type={type}
@@ -80,7 +78,6 @@ const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, t
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                 />
-                break;
         }
     }
 

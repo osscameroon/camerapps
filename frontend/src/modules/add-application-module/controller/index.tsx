@@ -1,9 +1,7 @@
 import * as yup from "yup";
-import { urlRegex } from "../../../constants";
 import {AddingAppProps} from "../../../model/AddingAppProps";
 
 class AddAppController {
-    private wrongUrlMessage = "This url is not right.";
     private readonly ADDING_APP_FIELDS: AddingAppProps = {
         name: "name",
         description: "description",
@@ -22,8 +20,6 @@ class AddAppController {
     get fields() {
         return this.ADDING_APP_FIELDS;
     }
-
-// .matches(urlRegex, this.wrongUrlMessage)
 
     get MySchema() {
         return yup.object().shape({
@@ -57,12 +53,10 @@ class AddAppController {
     }
 
     async onSuccess(response: any) {
-        const data = await response.json();
-        return data;
+        return response.json();
     }
 
     onSubmit(data: any, action: any) {
-        console.log(data);
         action({
             body: data,
             method: "POST",

@@ -59,7 +59,7 @@ interface AppFormUIProps {
 
 const AppFormUI = ({formProps}: AppFormUIProps) => {
     
-    const [action, {status, error, data, reset}] = useMutation(apiHost + "/applications");
+    const [action, {status, reset}] = useMutation(apiHost + "/applications");
 
     return <AppFormUIWrapper onSubmit={formProps.handleSubmit((data: any) => AddAppController.onSubmit(data, action), AddAppController.onErrors)}>
         <h2>Participate and add your application here</h2>

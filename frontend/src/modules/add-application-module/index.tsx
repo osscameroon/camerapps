@@ -5,8 +5,6 @@ import AppFormUI from "./children/app-form";
 import AddAppController from "./controller";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {FormProps} from "../../model/FormProps";
-import {IApp} from "../../model/IApp";
 import {AddingAppProps} from "../../model/AddingAppProps";
 
 const AppFormWrapper = styled.div`

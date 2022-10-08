@@ -1,11 +1,10 @@
 import { observer } from "mobx-react";
-import React, {memo, useEffect} from "react";
-import styled from "styled-components";
+import React, { useEffect} from "react";
 import { IApp } from "../../../../../../model/IApp";
 import AppStore from "../../../../../../stores/AppStore";
 import KeyBuilder from "../../../../../../utils/KeyBuilder";
 import AppCardUI from "./../../children/app-card";
-import {AppViewWrapper} from "./../../style/default";
+import {AppViewWrapper} from "../../style/default";
 
 interface AppViewProps {
     list: Array<IApp>;

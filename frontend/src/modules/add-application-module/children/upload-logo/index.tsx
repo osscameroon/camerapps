@@ -56,7 +56,6 @@ const UploadLogo = ({formProps, logo}: UploadLogoProps) => {
     }) => {
         if(validity.valid) {
             setImg(URL.createObjectURL(file));
-            let reader = new FileReader();
             const formData = new FormData();
             formData.append("file", file);
             // console.log(file, formData, reader.readAsBinaryString(file));

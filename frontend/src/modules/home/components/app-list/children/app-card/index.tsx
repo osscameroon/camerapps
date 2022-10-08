@@ -122,22 +122,22 @@ const AppCardUI = ({app}: AppCardProps) => {
             </div>
             <div className="accounts">
                 {
-                    app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} className={""}><FaFacebookF color={"#ccc"} size={17} /></a>
+                    app?.facebookUrl && <a href={app?.facebookUrl} target={"_blank"} rel="noreferrer" className={""}><FaFacebookF color={"#ccc"} size={17} /></a>
                 }
                 {
-                    app?. slackUrl && <a href={app?.slackUrl} target={"_blank"} className={""}><FaSlack color={"#ccc"} size={17} /></a>
+                    app?.slackUrl && <a href={app?.slackUrl} target={"_blank"} rel="noreferrer" className={""}><FaSlack color={"#ccc"} size={17} /></a>
                 }
                 {
-                    app?.twitterUrl && <a href={app?.twitterUrl} target={"_blank"} className={""}><FaTwitter color={"#ccc"} size={17} /></a>
+                    app?.twitterUrl && <a href={app?.twitterUrl} target={"_blank"} rel="noreferrer" className={""}><FaTwitter color={"#ccc"} size={17} /></a>
                 }
                 {
-                    app?.githubUrl && <a href={app?.githubUrl} target={"_blank"} className={""}><FaGithub color={"#ccc"} size={17} /></a>
+                    app?.githubUrl && <a href={app?.githubUrl} target={"_blank"} rel="noreferrer" className={""}><FaGithub color={"#ccc"} size={17} /></a>
                 }
                 {
-                    app?.linkedInUrl && <a href={app?.linkedInUrl} target={"_blank"} className={""}><FaLinkedinIn color={"#ccc"} size={17} /></a>
+                    app?.linkedInUrl && <a href={app?.linkedInUrl} target={"_blank"} rel="noreferrer" className={""}><FaLinkedinIn color={"#ccc"} size={17} /></a>
                 }
                 {
-                    app?.websiteUrl && <a href={app?.websiteUrl} target={"_blank"}><AiOutlineLink color={"#ccc"} size={17} /></a>
+                    app?.websiteUrl && <a href={app?.websiteUrl} target={"_blank"} rel="noreferrer"><AiOutlineLink color={"#ccc"} size={17} /></a>
                 }
             </div>
         </AppCardWrapper>

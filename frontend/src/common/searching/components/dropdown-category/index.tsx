@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import styled from "styled-components";
 import {FaChevronDown} from "react-icons/fa";
 import {Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
@@ -74,7 +74,7 @@ export interface CustomDropdownProps<R extends BaseModel> {
 
 const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDropdownProps<T>) => {
     const [choice, setChoice] = useState<T | null>(null);
-    const {status, data: values, error} = useFetch(url);
+    const { data: values } = useFetch(url);
 
     const ctrl = new SearchingController();
 
@@ -92,7 +92,7 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDrop
     }, [choice]);
 
     const selectHandler = (e: any) => {
-        setChoice(old => income.get(e.value));
+        setChoice(_old => income.get(e.value));
         if(name) {
             AppStore.setSearchInput(name, e.value);
             if(form) {

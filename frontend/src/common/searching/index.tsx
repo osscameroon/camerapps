@@ -1,9 +1,8 @@
-import React, {ChangeEvent, memo} from "react";
+import React, {memo} from "react";
 import {SearchingWrapper} from "./style/default";
 import SearchInput from "./components/search-input";
 import CustomDropdown from "./components/dropdown-category";
 import { apiHost } from "../../constants";
-import AppStore from "../../stores/AppStore";
 
 const SearchingUI = () => {
 

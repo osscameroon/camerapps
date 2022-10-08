@@ -17,7 +17,11 @@ export const initializeRoutes = (app: express.Application) => {
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-  app.use(helmet());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: true,
+    }),
+  );
   app.use(cors());
 
   app.engine('handlebars', engine());

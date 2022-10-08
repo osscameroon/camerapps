@@ -14,7 +14,7 @@ export const applicationRoute = (): Router => {
 
   router.delete(`${prefix}/:id`, applicationController.remove);
 
-  router.patch(`${prefix}/:id`, applicationController.update);
+  router.post(`${prefix}/:id`, applicationController.update);
 
   return router;
 };

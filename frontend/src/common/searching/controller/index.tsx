@@ -1,5 +1,3 @@
-import {IGender} from "../../../model/IGender";
-import {ICategory} from "../../../model/ICategory";
 import { BaseModel } from "../../../model/BaseModel";
 
 class SearchingController<T extends BaseModel> {
@@ -20,7 +18,7 @@ class SearchingController<T extends BaseModel> {
         return this.list;
     }
 
-    getList(type: "CATEGORY" | "GENDER") {
+    getList(_type: "CATEGORY" | "GENDER") {
         return Array.from(this.list.values() ?? []);
     }
 

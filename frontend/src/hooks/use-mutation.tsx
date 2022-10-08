@@ -66,7 +66,7 @@ export const useMutation = (url: string) => {
             dispatch({ type: 'DONE', payload: data });
         } else {
             try {
-                const res = await axios.request({
+                await axios.request({
                     url: url,
                     data: body,
                     method: method,

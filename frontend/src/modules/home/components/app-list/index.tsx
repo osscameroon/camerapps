@@ -1,16 +1,12 @@
-import React, {memo, useEffect} from "react";
+import React, {memo} from "react";
 import {useFetch} from "../../../../hooks/use-fetch";
-import AppCardUI from "./children/app-card";
 import AppViewUI from "./children/app-view";
 import EmptyStateUI from "../../../../common/empty-state";
-import {IApp} from "../../../../model/IApp";
-import KeyBuilder from "../../../../utils/KeyBuilder";
 import { apiHost } from "../../../../constants";
-import AppStore from "../../../../stores/AppStore";
 
 const AppListUI = () => {
 
-    const {status, data: {data}, error} = useFetch(`${apiHost}/applications`);
+    const {status, data: {data} } = useFetch(`${apiHost}/applications`);
 
     if(status === "fetching") return <>Loading...</>;
     if(status === "error") return <EmptyStateUI/>;

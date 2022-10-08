@@ -1,7 +1,6 @@
 import React, {ChangeEvent, memo, useState} from "react";
 import {IoCloseCircleSharp, IoSearch} from "react-icons/io5";
 import { SearchInputWrapper } from "./style/default";
-import {debounce} from "lodash";
 import AppStore from "../../../../stores/AppStore";
 
 const SearchInput = () => {
