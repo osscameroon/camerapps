@@ -1,5 +1,5 @@
 export const appName = "CM APPSTORE";
-export const apiHost = process.env.REACT_APP_API_URL;
+export const apiHost = "https://2a9f-2001-861-61c0-3c10-192f-d01d-bf2a-502d.ngrok.io";
 export const urlRegex = /((https|http)?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 
 export const size = {

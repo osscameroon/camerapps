@@ -10,11 +10,16 @@ export interface IApp extends BaseModel{
     slackUrl?: string;
     facebookUrl?: string;
     twitterUrl?: string;
+    whatsappUrl?: string;
+    dikaloUrl?: string;
+    linkedinUrl?: string;
+    telegramUrl?: string;
     linkedInUrl?: string;
     playstoreUrl?: string;
     appstoreUrl?: string;
     githubUrl?: string;
     genre?: IGender;
+    tags?: string;
     websiteUrl?: string;
     category?: ICategory;
     categoryId?: string;

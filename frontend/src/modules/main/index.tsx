@@ -14,6 +14,7 @@ const MainUI = () => {
                 <Switch>
                     <Route exact path="/" component={HomeUI}/>
                     <Route path="/add-app" component={AddApplicationModule}/>
+                    <Route path="/:id" component={AddApplicationModule}/>
                 </Switch>
                 <FooterUI/>
             </Router>

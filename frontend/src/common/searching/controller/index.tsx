@@ -18,7 +18,11 @@ class SearchingController<T extends BaseModel> {
         return this.list;
     }
 
-    getList(_type: "CATEGORY" | "GENDER") {
+    get getMappedList() {
+        return this.list;
+    }
+
+    getList(type: "CATEGORY" | "GENDER") {
         return Array.from(this.list.values() ?? []);
     }
 

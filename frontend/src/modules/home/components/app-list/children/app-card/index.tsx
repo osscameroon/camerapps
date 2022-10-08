@@ -2,10 +2,11 @@ import {memo} from "react";
 import styled from "styled-components";
 import appLogo from "../../../../../../assets/images/app.svg";
 import {IApp} from "../../../../../../model/IApp";
-import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn, FaGooglePlay, FaAppStoreIos} from "react-icons/fa";
+import {FaFacebookF, FaGithub, FaSlack, FaTwitter, FaLinkedinIn, FaGooglePlay, FaAppStoreIos, FaEdit} from "react-icons/fa";
 import {AiOutlineLink} from "react-icons/ai";
+import {useHistory} from "react-router-dom";
 
-const AppCardWrapper = styled.a`
+const AppCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -76,7 +77,7 @@ const AppCardWrapper = styled.a`
     margin-top: 1em;
     display: flex;
     
-    a, a {
+    a {
       border: none;
       background-color: #eee;
       height: 30px;
@@ -92,6 +93,28 @@ const AppCardWrapper = styled.a`
       &:hover {
         background-color: #000;
       }
+    }
+  }
+
+  a.edit {
+    border: none;
+    background-color: #eee;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    margin-right: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s 0s ease-in-out;
+    
+    position: absolute;
+    right: .3em;
+    top: .5em;
+
+    &:hover {
+      background-color: #000;
     }
   }
 `;
@@ -110,6 +133,12 @@ interface AppCardProps {
 }
 
 const AppCardUI = ({app}: AppCardProps) => {
+
+    const history = useHistory();
+
+    const goEdit = () => {
+        history.push(`/${app?.id}`);
+    }
 
     return (
         <AppCardWrapper>
@@ -146,6 +175,7 @@ const AppCardUI = ({app}: AppCardProps) => {
                     app?.websiteUrl && <a href={app?.websiteUrl} target={"_blank"} rel="noreferrer"><AiOutlineLink color={"#ccc"} size={17} /></a>
                 }
             </div>
+            <a onClick={goEdit} className={"edit"}><FaEdit color={"#ccc"} /></a>
         </AppCardWrapper>
     );
 

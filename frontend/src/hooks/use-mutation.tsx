@@ -56,11 +56,10 @@ export const useMutation = (url: string) => {
                 ...body,
                 ...body?.file
             }
-            Object.entries(body).forEach((item) => {
-                formData.append(item[0], item[1] as any);
-            });
-            console.log("formData >>>", formData.entries(), body?.file);
         }
+        Object.entries(body).forEach((item) => {
+            formData.append(item[0], item[1] as any);
+        });
 
         dispatch({ type: 'LOADING' });
         if (cache?.current[url]) {
@@ -68,7 +67,8 @@ export const useMutation = (url: string) => {
             dispatch({ type: 'DONE', payload: data });
         } else {
             try {
-                await axios.request({
+                console.log(body, formData.get("name"));
+                const res = await axios.request({
                     url: url,
                     data: formData,
                     method: method,
@@ -76,19 +76,18 @@ export const useMutation = (url: string) => {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(async (res: any) => {
+                    console.log("res", res);
                     const data = await onSuccess(res);
                     if (cancelRequest) return;
                     dispatch({ type: 'DONE', payload: data });
                 }).catch(onError);
-
             } catch (error) {
                 if (cancelRequest) return;
                 dispatch({ type: 'MUTATION_ERROR', payload: error });
             }
         }
+        dispatch({ type: 'idle' });
     };
-
-    console.log(state);
 
     return [action, {
         ...state,

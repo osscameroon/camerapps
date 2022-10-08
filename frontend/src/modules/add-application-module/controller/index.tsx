@@ -53,12 +53,12 @@ class AddAppController {
     }
 
     async onSuccess(response: any) {
-        console.log("response >>> ", response);
         const {data} = await response;
+        // window.location.href = "/";
         return data ?? null;
     }
 
-    onSubmit(data: any, action: any) {
+    onSubmit(data: any, action: any, id?: string) {
         action({
             body: data,
             method: "POST",

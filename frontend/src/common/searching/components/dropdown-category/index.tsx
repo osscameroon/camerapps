@@ -70,9 +70,10 @@ export interface CustomDropdownProps<R extends BaseModel> {
     type: "CATEGORY" | "GENDER";
     name?: string;
     form?: FormProps;
+    defaultValue?: string;
 }
 
-const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDropdownProps<T>) => {
+const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValue}: CustomDropdownProps<T>) => {
     const [choice, setChoice] = useState<T | null>(null);
     const { data: values } = useFetch(url);
 
@@ -91,6 +92,17 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDrop
         setChoice(old => old);
     }, [choice]);
 
+    useEffect(() => {
+        if(defaultValue) {
+            let obj: T = ctrl.getMappedList.get(defaultValue);
+            form?.setValue(name ?? "", obj?.id);
+            setChoice(old => obj)
+        }
+        return () => {
+            setChoice(null);
+        }
+    }, [defaultValue]);
+
     const selectHandler = (e: any) => {
         setChoice(_old => income.get(e.value));
         if(name) {
@@ -106,7 +118,7 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form}: CustomDrop
             <Menu onItemClick={selectHandler}
                 overflow={"auto"}
                 position={"initial"}
-                menuButton={<MenuButton className={"szh-menu-button"}>{(choice?.name ?? "") ?? "All"} &nbsp; <FaChevronDown/></MenuButton>} transition>
+                menuButton={<MenuButton className={"szh-menu-button"}>{(choice?.name)} &nbsp; <FaChevronDown/></MenuButton>} transition>
                 {
                     (ctrl.getList(type) ?? []).map((item: any) => {
                         return (

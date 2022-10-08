@@ -4,7 +4,7 @@ import MainUI from "./modules/main";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" id={"app"}>
       <MainUI />
     </div>
   );

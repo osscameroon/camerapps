@@ -6,6 +6,7 @@ import AddAppController from "./controller";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {AddingAppProps} from "../../model/AddingAppProps";
+import {useParams} from "react-router-dom";
 
 const AppFormWrapper = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const AddApplicationModule = () => {
     const {register, setValue, setError, handleSubmit, reset} = useForm<AddingAppProps>({
         resolver: yupResolver(AddAppController.MySchema)
     });
+    const {id} = useParams<{id: string}>();
 
     const form = {register, setValue, setError, handleSubmit, reset};
 
@@ -62,7 +64,7 @@ const AddApplicationModule = () => {
             <div className="illus">
                 <img src={illustration} alt="Illustration form image"/>
             </div>
-            <AppFormUI formProps={form}/>
+            <AppFormUI id={id} formProps={form}/>
         </AppFormWrapper>
     );
 

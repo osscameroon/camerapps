@@ -108,6 +108,8 @@ export const create = async (req: Request, res: Response): Promise<Response<Appl
 export const update = async (req: Request, res: Response): Promise<Response<ApplicationData | GenericResponse>> => {
   const { id } = req.params;
 
+  console.log(req.body);
+
   const application = await prisma.application.findFirst({ where: { id } });
 
   if (!application) {
@@ -174,6 +176,8 @@ export const update = async (req: Request, res: Response): Promise<Response<Appl
     websiteUrl: undef(applicationInput.websiteUrl),
     whatsappUrl: undef(applicationInput.whatsappUrl),
   };
+
+  console.log(updateInput);
 
   const updatedApplication = await prisma.application.update({
     data: updateInput,
