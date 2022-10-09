@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FormProps } from "../../../../model/FormProps";
 import InputBuilder from "./../input-builder";
 import noImage from "./../../../../assets/images/no-image.png";
+import {TError} from "../app-form";
 
 const UploadLogoWrapper = styled.div`
   width: 250px;
@@ -35,6 +36,7 @@ const UploadLogoWrapper = styled.div`
 interface UploadLogoProps {
     formProps: FormProps;
     logo?: string;
+    errors?: TError;
 }
 
 const Avatar = ({img}: {img: any}) => {
@@ -43,7 +45,7 @@ const Avatar = ({img}: {img: any}) => {
     </div>
 }
 
-const UploadLogo = ({formProps, logo}: UploadLogoProps) => {
+const UploadLogo = ({formProps, logo, errors}: UploadLogoProps) => {
 
     const [img, setImg] = useState<any | string>(logo ? logo : noImage);
 
@@ -68,6 +70,9 @@ const UploadLogo = ({formProps, logo}: UploadLogoProps) => {
         <Avatar img={img} />
         <InputBuilder errors={formProps?.errors} elementType={"file"} onChange={onChange} required={false} name={"file"} defaultValue={""} register={formProps.register}
                       setValue={formProps.setValue} type={"file"} labelText={""} placeholder={"Enter the logo's url"}/>
+        {
+            (errors && errors?.["file"]) && <span className={"error-message"}>{errors["file"]?.message}</span>
+        }
     </UploadLogoWrapper>
 
 }

@@ -37,7 +37,6 @@ export const useMutation = (url: string) => {
 
     useEffect(() => {
         return function cleanup() {
-            console.log("reset")
             setCancelRequest(true);
         };
     }, []);
@@ -67,7 +66,6 @@ export const useMutation = (url: string) => {
             dispatch({ type: 'DONE', payload: data });
         } else {
             try {
-                console.log(body, formData.get("name"));
                 const res = await axios.request({
                     url: url,
                     data: formData,
@@ -76,11 +74,13 @@ export const useMutation = (url: string) => {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(async (res: any) => {
-                    console.log("res", res);
                     const data = await onSuccess(res);
                     if (cancelRequest) return;
                     dispatch({ type: 'DONE', payload: data });
-                }).catch(onError);
+                }).catch((e) => {
+                    onError?.(e?.message);
+                    dispatch({ type: 'MUTATION_ERROR', payload: e });
+                });
             } catch (error) {
                 if (cancelRequest) return;
                 dispatch({ type: 'MUTATION_ERROR', payload: error });

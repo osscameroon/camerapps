@@ -6,7 +6,7 @@ class SearchingController<T extends BaseModel> {
 
     formatData<T>(list: Array<any>, type: "CATEGORY" | "GENDER") {
         this.list.set("all", {
-            id: "all",
+            id: "",
             name: type === "CATEGORY" ? "All categories" : "All genders"
         })
         list.forEach(item => {

@@ -141,7 +141,7 @@ const AppCardUI = ({app}: AppCardProps) => {
 
     return (
         <AppCardWrapper>
-            <img src={app?.logoUrl ?? "/logo.svg"} alt={app?.name + "'s logo"}/>
+            <img loading={"lazy"} src={app?.logoUrl ?? "/logo.svg"} alt={app?.name + "'s logo"}/>
             <strong>{app?.name}</strong>
             <p>{app?.description}</p>
             <div className="_flex">

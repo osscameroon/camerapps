@@ -11,6 +11,7 @@ import SearchingController from "./../../controller";
 import {FormProps} from "../../../../model/FormProps";
 import AppStore from "../../../../stores/AppStore";
 import {theme} from "../../../../theme";
+import {TError} from "../../../../modules/add-application-module/children/app-form";
 
 const DropdownWrapper = styled.div<{ form?: FormProps }>`
   width: ${props => props.form ? "" : "50%"};
@@ -130,7 +131,7 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValu
                     (ctrl.getList(type) ?? []).map((item: any, index) => {
                         return (
                             <MenuItem className={item?.id === choice?.id ? "activated" : ""} key={index}
-                                      value={item.id}>{item.name}</MenuItem>
+                                      value={item?.id}>{item.name}</MenuItem>
                         );
                     })
                 }

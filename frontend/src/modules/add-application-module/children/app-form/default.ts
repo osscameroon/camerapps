@@ -4,9 +4,9 @@ import {size} from "../../../../constants";
 export const AppFormUIWrapper = styled.form`
   padding: 2em;
   width: 100vw;
-  //height: calc(100vh - 60px - 65px);
   overflow-y: scroll;
   z-index: 3;
+  padding-bottom: 4rem;
 
   h2 {
     font-size: 2.3em;
@@ -25,6 +25,15 @@ export const AppFormUIWrapper = styled.form`
     display: flex;
     align-items: center;
     gap: 2rem;
+    
+    position: fixed;
+    bottom: 5.5rem;
+    
+    background-color: ${({theme}) => theme.white};
+    width: 100%;
+    left: 0;
+    
+    padding-left: 2rem;
   }
 
   .section-block {
@@ -44,6 +53,13 @@ export const AppFormUIWrapper = styled.form`
     .basic, .basic-form {
       border-radius: 10px;
     }
+  }
+
+  .error-message {
+    color: red;
+    font-size: .8em;
+    display: block;
+    margin-top: .3rem;
   }
   
   @media(max-width: ${size.tablet}) {

@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import {AddingAppProps} from "../../../model/AddingAppProps";
+import {TError} from "../children/app-form";
 
 class AddAppController {
     private readonly ADDING_APP_FIELDS: AddingAppProps = {
@@ -44,8 +45,9 @@ class AddAppController {
         });
     }
 
-    onErrors(e: any) {
-        console.log(e)
+    onErrors(e: any, setErrors:  React.Dispatch<React.SetStateAction<TError | undefined>>) {
+        setErrors(e);
+        console.log(e);
     }
 
     onError(e: any) {
@@ -54,11 +56,11 @@ class AddAppController {
 
     async onSuccess(response: any) {
         const {data} = await response;
-        // window.location.href = "/";
+        window.location.href = "/";
         return data ?? null;
     }
 
-    onSubmit(data: any, action: any, id?: string) {
+    onSubmit(data: any, action: any, id?: string, setErrors?:  React.Dispatch<React.SetStateAction<TError | undefined>>) {
         action({
             body: data,
             method: "POST",

@@ -21,11 +21,6 @@ const InputTextWrapper = styled.div`
       border-width: 2px;
     }
   }
-  
-  .error-message {
-    color: red;
-    font-size: .8em;
-  }
 `;
 
 export type InputType = "textarea" | "input" | "file";
