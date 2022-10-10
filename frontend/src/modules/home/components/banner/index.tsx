@@ -14,7 +14,7 @@ const BannerWrapper = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 5px;
-  min-height: 60vh;
+  min-height: 55vh;
   margin-bottom: 3rem;
   
   ._content {

@@ -16,7 +16,6 @@ export type AppListUIProps = {
 
 const AppListUI = ({}: AppListUIProps) => {
 
-    // ${cursor ? "?nextToken=" + cursor.toString() : ""}
     const {cursor, setCursor} = useContext(HomeContext);
     const url = `${apiHost}/applications${cursor ? "?nextToken=" + cursor?.toString() : ""}`;
     const [isFetching, setIsFetching] = useInfiniteScroll(() => {

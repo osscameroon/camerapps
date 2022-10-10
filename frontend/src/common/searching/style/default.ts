@@ -33,7 +33,7 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
     flex-direction: column;
     justify-content: center;
     
-    height: 100px;
+    min-height: 100px;
     border-radius: 0;
     padding: 0;
   }
