@@ -1,23 +1,37 @@
-import React, {memo} from "react";
+import React, {memo, useContext} from "react";
 import {useFetch} from "../../../../hooks/use-fetch";
 import AppViewUI from "./children/app-view";
 import EmptyStateUI from "../../../../common/empty-state";
 import { apiHost } from "../../../../constants";
+// import {useApps} from "../../../../hooks/use-apps";
+import {HomeContext} from "../../index";
+import useInfiniteScroll from "../../../../hooks/use-infinite-scroll";
 import {useApps} from "../../../../hooks/use-apps";
+import AppStore from "../../../../stores/AppStore";
+import styled from "styled-components";
 
-const AppListUI = () => {
+export type AppListUIProps = {
 
-    const {data, error, isLoading} = useApps(`${apiHost}/applications`);
+}
+
+const AppListUI = ({}: AppListUIProps) => {
+
+    // ${cursor ? "?nextToken=" + cursor.toString() : ""}
+    const {cursor, setCursor} = useContext(HomeContext);
+    const url = `${apiHost}/applications${cursor ? "?nextToken=" + cursor?.toString() : ""}`;
+    const [isFetching, setIsFetching] = useInfiniteScroll(() => {
+        setCursor(AppStore.getCursor)
+    });
+    const {error, isLoading} = useApps(url, setIsFetching as React.Dispatch<React.SetStateAction<boolean>>);
+
 
     if(isLoading) return <>Loading...</>;
     if(error) return <EmptyStateUI />;
 
-    const values = data?.data?.items ?? [];
-    
-    if(values.length <= 0) return <EmptyStateUI />;
-
     return (
-        <AppViewUI list={values} />
+        <>
+            <AppViewUI isFetching={isFetching as boolean} />
+        </>
     );
 
 }

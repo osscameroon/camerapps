@@ -12,6 +12,7 @@ class AppStore {
     list: Map<string, IApp> = new Map<string, IApp>([]);
     resultSearch: Map<string, IApp> = new Map<string, IApp>([]);
     searchInput: ISearchInput | null = null;
+    cursor: number | undefined;
 
     constructor() {
         makeObservable(this, {
@@ -23,12 +24,23 @@ class AppStore {
             makeSearch: action,
             setSearchInput: action,
             getSearchResults: computed,
-            clearInput: action
+            clearInput: action,
+            cursor: observable,
+            setCursor: action,
+            getCursor: computed
         })
     }
 
     get getList() {
         return Array.from(this.list.values() ?? []);
+    }
+
+    setCursor(cursor: number | undefined) {
+        this.cursor = cursor;
+    }
+
+    get getCursor() {
+        return this.cursor;
     }
 
     clearInput() {

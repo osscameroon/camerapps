@@ -7,14 +7,10 @@ import {AppViewWrapper} from "./../../style/default";
 import EmptyStateUI from "./../../../../../../common/empty-state";
 
 interface AppViewProps {
-    list: Array<IApp>;
+    isFetching?: boolean;
 }
 
-const AppViewUI = ({list = []}: AppViewProps) => {
-
-    useEffect(() => {
-        AppStore.setList(list);
-    }, [list])
+const AppViewUI = ({isFetching}: AppViewProps) => {
 
     if (!(AppStore.searchInput === null ? AppStore.getList : AppStore.getSearchResults) || (AppStore.searchInput === null ? AppStore.getList : AppStore.getSearchResults)?.length === 0) {
         return <EmptyStateUI/>;
@@ -28,6 +24,9 @@ const AppViewUI = ({list = []}: AppViewProps) => {
                         <AppCardUI key={index} app={item}/>
                     );
                 })
+            }
+            {
+                isFetching ? "Fetch more apps..." : null
             }
         </AppViewWrapper>
     );

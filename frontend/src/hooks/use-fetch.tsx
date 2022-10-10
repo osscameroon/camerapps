@@ -1,10 +1,22 @@
-import { useCallback } from "react";
+import {useCallback, useContext} from "react";
 import {useEffect, useReducer, useRef} from "react";
 import {ActionType} from "../model/ActionType";
+import {HomeContext} from "../modules/home";
+import {IApp} from "../model/IApp";
 
 export const useFetch = (url: string) => {
     const cache: any = useRef({});
-    const initialState = {
+    const {setCursor} = useContext(HomeContext);
+    const initialState: {
+        status: "fetching" | "fetched" | "error",
+        error: any,
+        data: {
+            data?: {
+                items: IApp[],
+                nextToken: number
+            }
+        } | []
+    } = {
         status: 'fetching',
         error: null,
         data: [],
@@ -25,18 +37,24 @@ export const useFetch = (url: string) => {
     }, initialState);
 
     const fetchList = useCallback(() => {
-        const fetchData = async () => {
+        const fetchData = async (refetchUrl?: string, cursor?: number) => {
+            console.log("cursor >>> ", cursor);
+            const finalUrl = refetchUrl ? refetchUrl : url;
             dispatch({ type: 'LOADING' });
-            if (cache?.current[url]) {
-                const data = cache?.current[url];
+            if (cache?.current[finalUrl]) {
+                const data = cache?.current[finalUrl];
                 dispatch({ type: 'FETCHED', payload: data });
             } else {
                 try {
-                    const response = await fetch(url);
+                    console.log("cursor>>>", cursor);
+                    const response = await fetch(`${finalUrl}`);
                     const data = await response.json();
-                    cache.current[url] = data;
+                    cache.current[finalUrl] = data?.data?.items;
+                    if(cursor !== data?.data?.nextToken) {
+                        setCursor(data?.data?.nextToken);
+                    }
                     if (cancelRequest) return;
-                    dispatch({ type: 'FETCHED', payload: data });
+                    dispatch({ type: 'FETCHED', payload: data?.data?.items ?? [] });
                 } catch (error) {
                     if (cancelRequest) return;
                     dispatch({ type: 'FETCH_ERROR', payload: error });
@@ -44,8 +62,8 @@ export const useFetch = (url: string) => {
             }
         };
 
-        fetchData();
-    }, [url])
+        fetchData(undefined);
+    }, [])
 
     useEffect(() => {
         if (!url) return;
