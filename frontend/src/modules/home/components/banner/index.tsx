@@ -1,6 +1,5 @@
 import React, {memo} from "react";
 import styled from "styled-components";
-import LinkButton from "../../../../common/link-button";
 import {size} from "../../../../constants";
 import {FaGithub} from "react-icons/fa";
 import ALinkButton from "../../../../common/alink-button";

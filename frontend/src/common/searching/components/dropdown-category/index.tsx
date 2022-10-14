@@ -6,12 +6,13 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import {BaseModel} from "../../../../model/BaseModel";
 import {size} from "../../../../constants";
-import {useFetch} from "../../../../hooks/use-fetch";
 import SearchingController from "./../../controller";
 import {FormProps} from "../../../../model/FormProps";
 import AppStore from "../../../../stores/AppStore";
 import {theme} from "../../../../theme";
-import {TError} from "../../../../modules/add-application-module/children/app-form";
+import { useGet } from "../../../../hooks/use-get";
+import { TFetchData } from "../../../../model/TFetchData";
+import { IApp } from "../../../../model/IApp";
 
 const DropdownWrapper = styled.div<{ form?: FormProps }>`
   width: ${props => props.form ? "" : "50%"};
@@ -72,7 +73,7 @@ const DropdownWrapper = styled.div<{ form?: FormProps }>`
   }
 `;
 
-export interface CustomDropdownProps<R extends BaseModel> {
+export type CustomDropdownProps<R extends BaseModel> = {
     url: string;
     type: "CATEGORY" | "GENDER";
     name?: string;
@@ -82,11 +83,11 @@ export interface CustomDropdownProps<R extends BaseModel> {
 
 const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValue}: CustomDropdownProps<T>) => {
     const [choice, setChoice] = useState<T | null>(null);
-    const {data: values} = useFetch(url);
+    const { data: values, isLoading } = useGet<TFetchData<T>>(url);
 
     const ctrl = new SearchingController();
 
-    const income = ctrl.formatData<T>(values.data ?? [], type);
+    const income = ctrl.formatData<T>(values?.data ?? [], type);
 
     useEffect(() => {
         if (form) {
@@ -120,6 +121,10 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValu
         }
     }
 
+    if(isLoading) {
+        return <>Loading...</>
+    }
+
     return (
         <DropdownWrapper form={form}>
             <Menu onItemClick={selectHandler}
@@ -128,7 +133,7 @@ const CustomDropdown = <T extends BaseModel>({url, type, name, form, defaultValu
                   menuButton={<MenuButton className={"szh-menu-button"}>{(choice?.name)} &nbsp;
                       <FaChevronDown/></MenuButton>} transition>
                 {
-                    (ctrl.getList(type) ?? []).map((item: any, index) => {
+                    (ctrl.getList(type) ?? []).map((item: IApp, index) => {
                         return (
                             <MenuItem className={item?.id === choice?.id ? "activated" : ""} key={index}
                                       value={item?.id}>{item.name}</MenuItem>

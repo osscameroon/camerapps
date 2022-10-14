@@ -39,7 +39,7 @@ interface UploadLogoProps {
     errors?: TError;
 }
 
-const Avatar = ({img}: {img: any}) => {
+const Avatar = ({img}: {img: string}) => {
     return <div className={"preview"}>
         <img src={img} alt="logo shower"/>
     </div>
@@ -61,7 +61,6 @@ const UploadLogo = ({formProps, logo, errors}: UploadLogoProps) => {
             setImg(URL.createObjectURL(file));
             const formData = new FormData();
             formData.append("file", file);
-            // console.log(file, formData, reader.readAsBinaryString(file));
             formProps.setValue("file", file);
         }
     }

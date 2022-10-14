@@ -1,12 +1,12 @@
 import {observer} from "mobx-react";
-import React, {useEffect} from "react";
+import React from "react";
 import {IApp} from "../../../../../../model/IApp";
 import AppStore from "../../../../../../stores/AppStore";
 import AppCardUI from "./../../children/app-card";
-import {AppViewWrapper} from "./../../style/default";
+import {AppViewWrapper} from "../../style/default";
 import EmptyStateUI from "./../../../../../../common/empty-state";
 
-interface AppViewProps {
+type AppViewProps = {
     isFetching?: boolean;
 }
 

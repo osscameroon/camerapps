@@ -75,33 +75,6 @@ class AppStore {
         })
     }
 
-    partSearch(isFound: boolean, key: any) {
-        let checker = false;
-        if (this.searchInput?.categoryId) {
-            const isExists = key.includes(this.searchInput?.categoryId ? (this.searchInput?.categoryId === "all" ? "" : this.searchInput?.categoryId) : "");
-            checker = isFound ? ((isFound && isExists)) : isExists;
-            if (checker) {
-                if (this.searchInput?.genderId) {
-                    checker = key.includes(this.searchInput?.genderId ? (this.searchInput?.genderId === "all" ? "" : this.searchInput?.genderId) : "");
-                }
-            }
-        } else if (this.searchInput?.genderId) {
-            const isExists = key.includes(this.searchInput?.genderId ? (this.searchInput?.genderId === "all" ? "" : this.searchInput?.genderId) : "");
-            checker = isFound ? ((isFound && isExists)) : isExists;
-            if (checker) {
-                if (this.searchInput?.categoryId) {
-                    checker = key.includes(this.searchInput?.categoryId ? (this.searchInput?.categoryId === "all" ? "" : this.searchInput?.categoryId) : "");
-                }
-            }
-        }
-        return checker;
-    }
-
-    get getResultsLength() {
-        const list = Array.from(this.resultSearch.keys() ?? []);
-        return list.length ?? 0;
-    }
-
     makeSearch() {
         this.resultSearch.clear();
         const values = Array.from(this.list.keys() ?? []);

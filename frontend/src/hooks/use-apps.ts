@@ -1,22 +1,17 @@
 import {fetcher} from "../utils";
 import useSWR from "swr";
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import AppStore from "../stores/AppStore";
-import {HomeContext} from "../modules/home";
+import { TResponse } from "../model/Response";
+import {IApp} from "../model/IApp";
 
-type Response = {
-    // data: {
-    //     data?: {
-    //         items: IApp[]
-    //     }
-    // },
+interface Response extends Omit<TResponse<any>, "data"> {
     isLoading: boolean;
     error: Error
 }
 
 export const useApps = (url: string, setFetching?:  React.Dispatch<React.SetStateAction<boolean>>): Response => {
     const { data, error } = useSWR(url, fetcher);
-    const {setCursor} = useContext(HomeContext);
 
     useEffect(() => {
         if(data) {

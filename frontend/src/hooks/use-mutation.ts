@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import {MutableRefObject, useReducer, useState} from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { MutationType } from "../model/ActionType";
@@ -8,12 +8,12 @@ interface UseMutationOptions {
     body: any;
     method: "POST" | "DELETE";
     headers?: any;
-    onSuccess: (res: any) => any;
+    onSuccess: (res: any) => void;
     onError?: (error: any) => void;
 }
 
 export const useMutation = (url: string) => {
-    const cache: any = useRef({});
+    const cache: MutableRefObject<any> = useRef({});
     const initialState = {
         status: 'idle',
         error: null,

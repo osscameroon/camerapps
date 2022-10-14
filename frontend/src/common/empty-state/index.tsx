@@ -50,7 +50,7 @@ const EmptyWrapper = styled.div`
 `;
 
 interface EmptyStateUIProps {
-    refetch?: any;
+    refetch?: () => void;
 }
 
 const EmptyStateUI = ({refetch}: EmptyStateUIProps) => {

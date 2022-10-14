@@ -47,11 +47,10 @@ class AddAppController {
 
     onErrors(e: any, setErrors:  React.Dispatch<React.SetStateAction<TError | undefined>>) {
         setErrors(e);
-        console.log(e);
     }
 
     onError(e: any) {
-        console.log(e)
+        console.debug(e)
     }
 
     async onSuccess(response: any) {
