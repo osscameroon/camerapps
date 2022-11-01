@@ -67,7 +67,7 @@ const Banner = ({}: BannerProps) => {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa dolor eaque facilis numquam obcaecati
                 sapiente, sunt totam vitae? Blanditiis eligendi, et facilis laboriosam nobis quam saepe sapiente similique
                 velit.</p>
-            <ALinkButton href={"https://github.com/osscameroon"} type={"plain"} size={"large"}>
+            <ALinkButton href={"https://github.com/osscameroon"} type={"plain"} size={"large"} target="_blank">
                 <FaGithub className={"btn-adder__icon"}/>
                 Join the community
             </ALinkButton>

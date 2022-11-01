@@ -19,7 +19,7 @@ export const initializeRoutes = (app: express.Application) => {
   app.use(express.json());
   app.use(
     helmet({
-      crossOriginResourcePolicy: true,
+      crossOriginResourcePolicy: false,
     }),
   );
   app.use(cors());
