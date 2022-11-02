@@ -3,7 +3,6 @@ import useSWR from "swr";
 import React, {useEffect} from "react";
 import AppStore from "../stores/AppStore";
 import { TResponse } from "../model/Response";
-import {IApp} from "../model/IApp";
 
 interface Response extends Omit<TResponse<any>, "data"> {
     isLoading: boolean;

@@ -14,9 +14,8 @@ const AppListUI = () => {
     const [isFetching, setIsFetching] = useInfiniteScroll(() => {
         setCursor(AppStore.getCursor)
     });
-    const {error, isLoading} = useApps(url, setIsFetching as React.Dispatch<React.SetStateAction<boolean>>);
+    const {error} = useApps(url, setIsFetching as React.Dispatch<React.SetStateAction<boolean>>);
 
-    if(isLoading) return <>Loading...</>;
     if(error) return <EmptyStateUI />;
 
     return (
