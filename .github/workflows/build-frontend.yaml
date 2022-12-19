@@ -55,5 +55,5 @@ jobs:
           env: prod
           patch-field: ".services.app.image"
           patch-value: ${{ steps.meta.outputs.tags }}
-          file: frontend-stack.yml
+          file: frontend-stack.yaml
           gh-token: ${{ secrets.GA_WORKFLOW_DEPLOYMENTS_TOKEN }}
