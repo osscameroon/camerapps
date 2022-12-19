@@ -42,7 +42,7 @@ jobs:
         with:
           context: ./frontend
           build-args: |
-            baseApiURL={{ secrets.API_BASE_URL }}
+            baseApiURL=${{ secrets.API_BASE_URL }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
