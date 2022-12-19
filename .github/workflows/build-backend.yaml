@@ -51,7 +51,7 @@ jobs:
           service: camerapps
           type: compose
           env: prod
-          patch-field: ".services.app.image"
+          patch-field: ".services.api.image"
           patch-value: ${{ steps.meta.outputs.tags }}
           file: backend-stack.yaml
           gh-token: ${{ secrets.GA_WORKFLOW_DEPLOYMENTS_TOKEN }}
