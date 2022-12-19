@@ -4,11 +4,11 @@ RUN apt-get update && apt-get install -y openssl
 
 WORKDIR /backend
 
-COPY backend/src ./src
-COPY backend/prisma ./prisma
+COPY src ./src
+COPY prisma ./prisma
 COPY backend/*.json backend/yarn.lock ./
 RUN yarn install && yarn build
-COPY backend/src/views ./build/views
+COPY src/views ./build/views
 
 # Can't use node alpine because there is an issue with open SSL and Prisma
 FROM node:16-slim AS camerapps
