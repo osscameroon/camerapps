@@ -6,7 +6,7 @@ WORKDIR /backend
 
 COPY src ./src
 COPY prisma ./prisma
-COPY backend/*.json backend/yarn.lock ./
+COPY *.json yarn.lock ./
 RUN yarn install && yarn build
 COPY src/views ./build/views
 
