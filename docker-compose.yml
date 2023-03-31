@@ -16,7 +16,7 @@ services:
     container_name: camerappsapi
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: backend/Dockerfile
     restart: unless-stopped
     volumes:
       - "${API_VOLUME_PATH:-~/camerapps}/api/logs:/app/logs"
