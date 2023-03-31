@@ -49,7 +49,7 @@ export const SearchingWrapper = styled.form<{visible?: boolean}>`
   
   @media (max-width: ${size.tablet}) {
     margin: 0 2rem;
-
+    
     margin-top: 2rem !important;
   }
 `;
