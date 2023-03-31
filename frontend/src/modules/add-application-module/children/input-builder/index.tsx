@@ -7,7 +7,7 @@ import {SetFieldValue, SetValueConfig} from "react-hook-form/dist/types/form";
 const InputTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   input, textarea {
     padding: .9em 1em;
     outline: none;
@@ -16,7 +16,7 @@ const InputTextWrapper = styled.div`
     transition: all .2s 0s ease-in-out;
     font-size: .9em;
     background-color: ${({theme}) => theme.secondary};
-    
+
     &:focus {
       border-width: 2px;
     }
@@ -25,7 +25,7 @@ const InputTextWrapper = styled.div`
 
 export type InputType = "textarea" | "input" | "file";
 
-interface InputTextProps <TFieldValues extends FieldValues = FieldValues> {
+interface InputTextProps<TFieldValues extends FieldValues = FieldValues> {
     name: string;
     labelText: string;
     defaultValue?: string;
@@ -37,13 +37,25 @@ interface InputTextProps <TFieldValues extends FieldValues = FieldValues> {
     invalid?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
+
     register<TFieldElement extends FieldElement<TFieldValues>>(ref: (TFieldElement & Ref) | null, rules?: RegisterOptions): void;
+
     setValue(name: FieldName<TFieldValues>, value: SetFieldValue<TFieldValues>, config?: SetValueConfig): void;
 }
 
-const InputBuilder = ({name, labelText, defaultValue = "", rows = 4, register, type = "text", errors, placeholder = "", required = false, elementType = "input", onChange}: InputTextProps) => {
-
-    // register({name}, {required});
+const InputBuilder = ({
+                          name,
+                          labelText,
+                          defaultValue = "",
+                          rows = 4,
+                          register,
+                          type = "text",
+                          errors,
+                          placeholder = "",
+                          required = false,
+                          elementType = "input",
+                          onChange
+                      }: InputTextProps) => {
 
     const constructElement = () => {
         switch (elementType) {

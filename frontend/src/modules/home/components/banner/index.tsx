@@ -15,7 +15,7 @@ const BannerWrapper = styled.div`
   border-radius: 5px;
   min-height: 55vh;
   margin-bottom: 3rem;
-  
+
   ._content {
     display: flex;
     flex-direction: column;
@@ -39,17 +39,17 @@ const BannerWrapper = styled.div`
       line-height: 27px;
     }
   }
-  
+
   @media (max-width: ${size.tablet}) {
     margin: 0 1rem;
   }
-  
+
   @media (max-width: ${size.mobileL}) {
     ._content {
       h1 {
         font-size: 2rem;
       }
-      
+
       p {
         font-size: 1rem;
       }
@@ -64,9 +64,9 @@ const Banner = ({}: BannerProps) => {
     return <BannerWrapper>
         <div className="_content">
             <h1>The home of Africa Tech Excellence</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa dolor eaque facilis numquam obcaecati
-                sapiente, sunt totam vitae? Blanditiis eligendi, et facilis laboriosam nobis quam saepe sapiente similique
-                velit.</p>
+            <p>We are delighted to offer you a platform that gathers a wide variety of applications created and
+                developed by African talents. From finance to education, games, and social networks, our catalog
+                provides a multitude of options for all tastes and needs.</p>
             <ALinkButton href={"https://github.com/osscameroon"} type={"plain"} size={"large"} target="_blank">
                 <FaGithub className={"btn-adder__icon"}/>
                 Join the community
