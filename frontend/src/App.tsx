@@ -1,15 +1,14 @@
-import React from 'react';
-import './App.css';
 import MainUI from "./modules/main";
 import ScrollToTop from "./common/scroll-top";
+import "./App.css";
 
-function App() {
+const App = () => {
   return (
     <div className="App" id={"app"}>
       <MainUI />
-        <ScrollToTop />
+      <ScrollToTop />
     </div>
   );
-}
+};
 
 export default App;
