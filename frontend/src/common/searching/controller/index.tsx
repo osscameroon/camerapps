@@ -1,35 +1,31 @@
-import { BaseModel } from "../../../model/BaseModel";
+class SearchingController {
+  list: Map<string, any> = new Map<string, any>();
 
-class SearchingController<T extends BaseModel> {
+  formatData(list: Array<any>, type: "CATEGORY" | "GENDER") {
+    this.list.set("all", {
+      id: "",
+      name: type === "CATEGORY" ? "All categories" : "All genders",
+    });
+    list.forEach((item) => {
+      this.list.set(item?.id, {
+        id: item?.id,
+        name: item?.name,
+      });
+    });
+    return this.list;
+  }
 
-    list: Map<string, any> = new Map<string, any>();
+  get getMappedList() {
+    return this.list;
+  }
 
-    formatData<T>(list: Array<any>, type: "CATEGORY" | "GENDER") {
-        this.list.set("all", {
-            id: "",
-            name: type === "CATEGORY" ? "All categories" : "All genders"
-        })
-        list.forEach(item => {
-            this.list.set(item?.id, {
-                id: item?.id,
-                name: item?.name
-            })
-        });
-        return this.list;
-    }
+  getList() {
+    return Array.from(this.list.values() ?? []);
+  }
 
-    get getMappedList() {
-        return this.list;
-    }
-
-    getList(type: "CATEGORY" | "GENDER") {
-        return Array.from(this.list.values() ?? []);
-    }
-
-    get getMapList() {
-        return this.list;
-    }
-
+  get getMapList() {
+    return this.list;
+  }
 }
 
 export default SearchingController;

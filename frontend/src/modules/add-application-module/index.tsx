@@ -1,17 +1,16 @@
-import {memo} from "react";
+import { memo } from "react";
 import styled from "styled-components";
-import illustration from "../../assets/images/banner.jpg";
 import AppFormUI from "./children/app-form";
 import AddAppController from "./controller";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {AddingAppProps} from "../../model/AddingAppProps";
-import {useParams} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AddingAppProps } from "../../model/AddingAppProps";
+import { useParams } from "react-router-dom";
 
 const AppFormWrapper = styled.div`
   display: flex;
   position: relative;
-  
+
   &:before {
     display: block;
     content: "";
@@ -43,12 +42,12 @@ const AppFormWrapper = styled.div`
     border: 2px solid #fff;
     border-radius: 50px;
     padding: 1em;
-    font-size: .9em;
+    font-size: 0.9em;
 
     text-decoration: none;
     color: #000;
 
-    transition: all .3s 0s ease-in-out;
+    transition: all 0.3s 0s ease-in-out;
 
     &._btn-primary {
       background-color: #000;
@@ -67,20 +66,19 @@ const AppFormWrapper = styled.div`
 `;
 
 const AddApplicationModule = () => {
-
-    const {register, setValue, setError, handleSubmit, reset} = useForm<AddingAppProps>({
-        resolver: yupResolver(AddAppController.MySchema)
+  const { register, setValue, setError, handleSubmit, reset } =
+    useForm<AddingAppProps>({
+      resolver: yupResolver(AddAppController.MySchema),
     });
-    const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
 
-    const form = {register, setValue, setError, handleSubmit, reset};
+  const form = { register, setValue, setError, handleSubmit, reset };
 
-    return (
-        <AppFormWrapper>
-            <AppFormUI id={id} formProps={form}/>
-        </AppFormWrapper>
-    );
-
-}
+  return (
+    <AppFormWrapper>
+      <AppFormUI id={id} formProps={form} />
+    </AppFormWrapper>
+  );
+};
 
 export default memo(AddApplicationModule);

@@ -1,7 +1,7 @@
 FROM node:16-buster-slim
 
 ARG baseApiURL="api.camerapps.com"
-ENV REACT_APP_API_URL=$baseApiURL
+ENV VITE_API_URL=$baseApiURL
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ FROM flashspys/nginx-static
 
 RUN apk update && apk upgrade
 
-COPY --from=0 /app/build /static
+COPY --from=0 /app/dist /static

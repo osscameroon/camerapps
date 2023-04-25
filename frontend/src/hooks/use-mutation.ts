@@ -1,96 +1,107 @@
-import {MutableRefObject, useReducer, useState} from "react";
+import { MutableRefObject, useReducer, useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { MutationType } from "../model/ActionType";
 import axios from "axios";
 
 interface UseMutationOptions {
-    body: any;
-    method: "POST" | "DELETE";
-    headers?: any;
-    onSuccess: (res: any) => void;
-    onError?: (error: any) => void;
+  body: any;
+  method: "POST" | "DELETE";
+  headers?: any;
+  onSuccess: (res: any) => void;
+  onError?: (error: any) => void;
 }
 
 export const useMutation = (url: string) => {
-    const cache: MutableRefObject<any> = useRef({});
-    const initialState = {
-        status: 'idle',
-        error: null,
-        data: [],
-        reset: null
-    };
-    const [cancelRequest, setCancelRequest] = useState<boolean>(false);
+  const cache: MutableRefObject<any> = useRef({});
+  const initialState = {
+    status: "idle",
+    error: null,
+    data: [],
+    reset: null,
+  };
+  const [cancelRequest, setCancelRequest] = useState<boolean>(false);
 
-    const [state, dispatch] = useReducer((state: any, action: MutationType) => {
-        switch (action.type) {
-            case 'LOADING':
-                return { ...initialState, status: 'loading' };
-            case 'DONE':
-                return { ...initialState, status: 'done', data: action.payload };
-            case 'MUTATION_ERROR':
-                return { ...initialState, status: 'error', error: action.payload };
-            default:
-                return state;
-        }
-    }, initialState);
-
-    useEffect(() => {
-        return function cleanup() {
-            setCancelRequest(true);
-        };
-    }, []);
-
-    let onReset = () => {
-        dispatch({type: "idle", payload: []});
-        setCancelRequest(true);
+  const [state, dispatch] = useReducer((state: any, action: MutationType) => {
+    switch (action.type) {
+      case "LOADING":
+        return { ...initialState, status: "loading" };
+      case "DONE":
+        return { ...initialState, status: "done", data: action.payload };
+      case "MUTATION_ERROR":
+        return { ...initialState, status: "error", error: action.payload };
+      default:
+        return state;
     }
+  }, initialState);
 
-    let action = async ({body, method, onError, onSuccess, headers}: UseMutationOptions) => {
-        if (!url) return;
-        const formData = new FormData();
-
-        if(body?.file) {
-            body = {
-                ...body,
-                ...body?.file
-            }
-        }
-        Object.entries(body).forEach((item) => {
-            formData.append(item[0], item[1] as any);
-        });
-
-        dispatch({ type: 'LOADING' });
-        if (cache?.current[url]) {
-            const data = cache?.current[url];
-            dispatch({ type: 'DONE', payload: data });
-        } else {
-            try {
-                const res = await axios.request({
-                    url: url,
-                    data: formData,
-                    method: method,
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(async (res: any) => {
-                    const data = await onSuccess(res);
-                    if (cancelRequest) return;
-                    dispatch({ type: 'DONE', payload: data });
-                }).catch((e) => {
-                    onError?.(e?.message);
-                    dispatch({ type: 'MUTATION_ERROR', payload: e });
-                });
-            } catch (error) {
-                if (cancelRequest) return;
-                dispatch({ type: 'MUTATION_ERROR', payload: error });
-            }
-        }
-        dispatch({ type: 'idle' });
+  useEffect(() => {
+    return function cleanup() {
+      setCancelRequest(true);
     };
+  }, []);
 
-    return [action, {
-        ...state,
-        reset: onReset
-    }];
-}
+  let onReset = () => {
+    dispatch({ type: "idle", payload: [] });
+    setCancelRequest(true);
+  };
+
+  let action = async ({
+    body,
+    method,
+    onError,
+    onSuccess,
+  }: UseMutationOptions) => {
+    if (!url) return;
+    const formData = new FormData();
+
+    if (body?.file) {
+      body = {
+        ...body,
+        ...body?.file,
+      };
+    }
+    Object.entries(body).forEach((item) => {
+      formData.append(item[0], item[1] as any);
+    });
+
+    dispatch({ type: "LOADING" });
+    if (cache?.current[url]) {
+      const data = cache?.current[url];
+      dispatch({ type: "DONE", payload: data });
+    } else {
+      try {
+        await axios
+          .request({
+            url: url,
+            data: formData,
+            method: method,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(async (res: any) => {
+            const data = await onSuccess(res);
+            if (cancelRequest) return;
+            dispatch({ type: "DONE", payload: data });
+          })
+          .catch((e) => {
+            onError?.(e?.message);
+            dispatch({ type: "MUTATION_ERROR", payload: e });
+          });
+      } catch (error) {
+        if (cancelRequest) return;
+        dispatch({ type: "MUTATION_ERROR", payload: error });
+      }
+    }
+    dispatch({ type: "idle" });
+  };
+
+  return [
+    action,
+    {
+      ...state,
+      reset: onReset,
+    },
+  ];
+};
