@@ -4,7 +4,7 @@ The Web application to browse applications built by Cameroonians developers for 
 
 # Prerequisites
 These tools must be installed to run the project
-* Node.js 14+
+* Node.js 16+
 * Yarn or NPM
 * Docker and Docker-compose
 
@@ -30,3 +30,11 @@ yarn start
 Once done, navigate to the URL [http://localhost:8100](http://localhost:8100)
 
 The API documentation is accessible to [http://localhost:8100/documentation](http://localhost:8100/documentation)
+
+## Run the frontend
+```shell
+cd frontend
+yarn install
+yarn dev
+```
+Open the browser and navigate to the URL [http://localhost:5173](http://localhost:5173)
