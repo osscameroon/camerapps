@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { FaFacebook, FaGithub, FaSlack, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaTelegram, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 import { size } from "../../constants";
 
@@ -68,17 +68,14 @@ const FooterUI = () => {
       </span>
       <div className="accounts">
         <span>Follow our community </span>
-        <a href="/">
-          <FaFacebook color={"#000"} size={24} />
-        </a>
-        <a href="/">
+        <a href="https://x.com/osscameroon" target="_blank">
           <FaTwitter color={"#000"} size={24} />
         </a>
-        <a href="/">
+        <a href="https://github.com/osscameroon" target="_blank">
           <FaGithub color={"#000"} size={24} />
         </a>
-        <a href="/">
-          <FaSlack color={"#000"} size={24} />
+        <a href="https://t.me/+UpKZh_KXTaTx7JD7" target="_blank">
+          <FaTelegram color={"#000"} size={24} />
         </a>
       </div>
     </FooterWrapper>
