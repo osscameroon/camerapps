@@ -2,41 +2,54 @@ services:
   db:
     container_name: camerappsdb
     image: mysql:8.0
-    restart: unless-stopped
+    restart: on-failure
+    networks:
+      - camerapps-network
     volumes:
-      - "${DB_VOLUME_PATH:-~/camerapps}/db:/db/data"
+      - "${DB_VOLUME_PATH:-~/camerapps}/db:/var/lib/mysql"
     ports:
       - 3307:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=C4meroonWin3re
-      - MYSQL_DATABASE=kamer
-    networks:
-      - camerapps-network
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-C4meroonWin3re}
+      MYSQL_DATABASE: kamer
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-C4meroonWin3re}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   api:
     container_name: camerappsapi
     build:
       context: .
       dockerfile: backend/Dockerfile
-    restart: unless-stopped
+    restart: on-failure
+    networks:
+      - camerapps-network
     volumes:
       - "${API_VOLUME_PATH:-~/camerapps}/api/logs:/app/logs"
       - "${API_VOLUME_PATH:-~/camerapps}/api/public:/app/public"
     ports:
       - "8100:8100"
     environment:
-      - NODE_ENV=development
-      - SERVER_PORT=8100
-      - BASE_URL=http://localhost:8100
-      - DATABASE_URL=mysql://root:C4meroonWin3re@db:3306/kamer
-      - APP_NAME="Camer Apps API"
-      - WEB_URL=https://camerapps.com
-      - UPLOAD_FILE_PATH=./public/images
-    links:
-      - db
+      NODE_ENV: development
+      SERVER_PORT: 8100
+      BASE_URL: http://localhost:8100
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-C4meroonWin3re}
+      DATABASE_URL: mysql://${MYSQL_USER:-root}:${MYSQL_PASSWORD:-C4meroonWin3re}@db:3306/kamer
+      APP_NAME: "Camer Apps API"
+      WEB_URL: https://camerapps.com
+      UPLOAD_FILE_PATH: ./public/images
     depends_on:
-      - db
-    networks:
-      - camerapps-network
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   camerapps-network:
